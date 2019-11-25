@@ -149,7 +149,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#message {
+/* #message {
   color: #DDD;
   font-size: 50px;
   margin-bottom: 20px;
@@ -159,7 +159,7 @@ export default {
   font-size: 200px;
   line-height: 1;
   margin-bottom: 40px;
-}
+} */
 
 
 .menu-wrap {
