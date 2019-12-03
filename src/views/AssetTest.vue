@@ -39,7 +39,7 @@
     </section>
     <section>
       <div class="answers d-flex mb-0 justify-content-center align-items-center">
-        <div class="answers-inner d-flex">
+        <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
             <div class="anim aa1 blink">
               <div class="answer-block">
@@ -91,44 +91,44 @@
 
 <script>
 export default {
-  name: 'AssetTest',
+  name: "AssetTest",
   data() {
     return {
       timer: null,
-      totalTime: (25 * 60),
+      totalTime: 25 * 60,
       resetButton: false,
       title: "Let the countdown begin!!"
-    }
+    };
   },
   // ========================
   methods: {
     startTimer: function() {
       this.timer = setInterval(() => this.countdown(), 1000);
       this.resetButton = true;
-      this.title = "Greatness is within sight!!"
+      this.title = "Greatness is within sight!!";
     },
     stopTimer: function() {
       clearInterval(this.timer);
       this.timer = null;
       this.resetButton = true;
-      this.title = "Never quit, keep going!!"
+      this.title = "Never quit, keep going!!";
     },
     resetTimer: function() {
-      this.totalTime = (25 * 60);
+      this.totalTime = 25 * 60;
       clearInterval(this.timer);
       this.timer = null;
       this.resetButton = false;
-      this.title = "Let the countdown begin!!"
+      this.title = "Let the countdown begin!!";
     },
     padTime: function(time) {
-      return (time < 10 ? '0' : '') + time;
+      return (time < 10 ? "0" : "") + time;
     },
     countdown: function() {
-      if(this.totalTime >= 1){
+      if (this.totalTime >= 1) {
         this.totalTime--;
-      } else{
+      } else {
         this.totalTime = 0;
-        this.resetTimer()
+        this.resetTimer();
       }
     }
   },
@@ -139,11 +139,11 @@ export default {
       return this.padTime(minutes);
     },
     seconds: function() {
-      const seconds = this.totalTime - (this.minutes * 60);
+      const seconds = this.totalTime - this.minutes * 60;
       return this.padTime(seconds);
     }
   }
-}
+};
 </script>
 
 
@@ -160,7 +160,6 @@ export default {
   line-height: 1;
   margin-bottom: 40px;
 } */
-
 
 .menu-wrap {
   position: relative;
@@ -223,7 +222,7 @@ export default {
 .timer-wrap {
   height: 10px;
   border-radius: 10px;
-  box-shadow: 0 50px 50px rgba(0, 0, 0, .15);
+  box-shadow: 0 50px 50px rgba(0, 0, 0, 0.15);
 }
 
 .timer-bar-left {
@@ -246,9 +245,9 @@ export default {
 }
 
 .question .text {
-  font-size: calc(13px + .4vw);
-  min-height: cal(13px + .4vw);
-  line-height: calc(13px + .4vw);
+  font-size: calc(13px + 0.4vw);
+  min-height: cal(13px + 0.4vw);
+  line-height: calc(13px + 0.4vw);
   height: 34px;
 }
 
@@ -259,26 +258,41 @@ export default {
 .list-complete-item {
   transition: all 1s;
   display: inline-block;
-  margin-right: 10px
+  margin-right: 10px;
+}
+
+.pinyin hide delay {
+  animation: fadeInBlur 1s ease-in forwards;
+}
+
+.question .symbols {
+  color: #384c63;
+}
+
+.question .symbols {
+  text-align: center;
 }
 
 .question .pinyin {
   color: #518dd4;
   max-width: 900px;
-  opacity: 1;
+  opacity: 0;
 }
 
 .question .pinyin.delay {
   animation: fadeInBlur 1s ease-in forwards;
 }
 
-.pinyin.hide.small, .pinyin.hide.smaller, .pinyin.hide {
+.pinyin.hide.small,
+.pinyin.hide.smaller,
+.pinyin.hide {
   font-size: 24px;
   transition: all 1s;
 }
 
 .answers {
   position: relative;
+  align-items: center;
   color: white;
   z-index: 2;
 }
@@ -294,7 +308,8 @@ export default {
 }
 
 .answer-row {
-  flex-grow: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .anim.aa1 {
@@ -319,19 +334,19 @@ export default {
 }
 
 .answer#a1.start {
-  animation: blinkPronounceA1S .3s 3;
+  animation: blinkPronounceA1S 0.3s 3;
 }
 
 .answer#a2.start {
-  animation: blinkPronounceA2S .3s 3;
+  animation: blinkPronounceA2S 0.3s 3;
 }
 
 .answer#a3.start {
-  animation: blinkPronounceA3S .3s 3;
+  animation: blinkPronounceA3S 0.3s 3;
 }
 
 .answer#a4.start {
-  animation: blinkPronounceA4S .3s 3;
+  animation: blinkPronounceA4S 0.3s 3;
 }
 
 .answer#a1 {
@@ -350,14 +365,23 @@ export default {
   background: #1ebf1b;
 }
 
-@media (max-width: 1370px){
+@media (max-width: 1370px) {
   .answer {
     height: 46px;
-    margin-bottom: 1px;
+    margin-bottom: 18px;
+  }
+
+  .question .symbols.show,
+  .question .symbols {
+    font-size: 80px;
+  }
+
+  .answer .variant {
+    font-size: 32px;
   }
 }
 
-@media (max-width: 1100px){
+@media (max-width: 1100px) {
   .answer {
     display: flex;
     width: calc(50px + 15.9vw);
@@ -365,51 +389,7 @@ export default {
     margin-left: 10px;
     margin-right: 10px;
   }
-}
 
-@media (max-width: 800px){
-  .answer {
-    width: calc(170px + 5vw);
-    min-height: calc(170px + 5vw);
-  }
-}
-
-@media (max-width: 500px){
-  .answer {
-    width: calc(100px + 19vw);
-    min-height: calc(100px + 19vw);
-  }
-}
-
-@media (max-width: 390px){
-  .answer {
-    width: calc(60px + 26.69vw);
-    min-height: calc(60px + 26.69vw);
-  }
-}
-
-.answer {
-  overflow-wrap: break-word;
-  font-weight: 700;
-  border: 0 solid transparent;
-  display: flex;
-  width: calc(170px + 5vw);
-  min-height: calc(170px + 5vw);
-  border-radius: 30px;
-  cursor: pointer;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  animation: fadeInDown 1s ease-out both;
-}
-
-@media (max-width: 1370px) {
-  .answer .variant {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 1100px) {
   .answer .variant {
     width: 50px;
     height: 50px;
@@ -420,6 +400,25 @@ export default {
 }
 
 @media (max-width: 800px) {
+  .answer {
+    width: calc(170px + 5vw);
+    min-height: calc(170px + 5vw);
+  }
+
+  .answers-inner {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 40px;
+    margin-left: 40px;
+    max-width: 1300px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  .answer-row {
+    flex-grow: 1;
+  }
+
   .answer .variant {
     width: 40px;
     height: 40px;
@@ -430,13 +429,48 @@ export default {
   }
 }
 
+@media (max-width: 500px) {
+  .answer {
+    width: calc(100px + 19vw);
+    min-height: calc(100px + 19vw);
+  }
+
+  .answer .text {
+    font-size: calc(15px + 0.4vw);
+  }
+}
+
+@media (max-width: 390px) {
+  .answer {
+    width: calc(60px + 26.69vw);
+    min-height: calc(60px + 26.69vw);
+  }
+}
+
+.answer {
+  display: flex;
+  width: calc(170px + 5vw);
+  min-height: calc(170px + 5vw);
+  overflow-wrap: break-word;
+  border-radius: 30px;
+  font-weight: 700;
+  border: 0 solid transparent;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* margin-bottom: 20px;
+  animation: fadeInDown 1s ease-out both; */
+}
+
 .answer .variant {
   position: absolute;
-  widows: 60px;
+  width: 60px;
   height: 60px;
   text-align: center;
   line-height: 60px;
-  background: rgba(0, 0, 0, .15);
+  background: rgba(0, 0, 0, 0.15);
   border-top-right-radius: 30px;
   border-bottom-left-radius: 30px;
   font-size: 36px;
@@ -446,21 +480,14 @@ export default {
 
 .variant .pronounce {
   display: inline-block;
-  animation: shakeVariant .4s ease-in-out;
-}
-
-@media (max-width: 500px) {
-  .answer .text {
-    font-size: calc(15px + .4vw);
-  }
+  animation: shakeVariant 0.4s ease-in-out;
 }
 
 .answer .text {
   font-weight: 700;
-  font-size: calc(16px + .4vw);
+  font-size: calc(16px + 0.4vw);
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
 }
-
 </style>
