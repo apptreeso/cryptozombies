@@ -25,7 +25,7 @@
       <div class="bottom-spacer"></div>
     </div>
     <section class="question">
-      <div class="question-wrapper text-center">
+      <div class="question-wrapper">
         <div class="text">
           <span style="color:#CB4444">What does this</span> mean
           <span style="color:#CB4444">?</span>
@@ -61,13 +61,15 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="answer-row">
             <div class="anim aa3 blink">
               <div class="answer-block">
                 <div id="a3" class="answer start">
                   <div class="variant">
                     <span class="pronounce">3</span>
                   </div>
-                  <div class="text">Hello</div>
+                  <div class="text">Be careful</div>
                 </div>
               </div>
             </div>
@@ -77,12 +79,11 @@
                   <div class="variant">
                     <span class="pronounce">4</span>
                   </div>
-                  <div class="text">Hello</div>
+                  <div class="text">Bless you!</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="answer-row"></div>
         </div>
       </div>
     </section>
@@ -91,13 +92,15 @@
 
 <script>
 export default {
-  name: "AssetTest",
+  name: "AssessmentTest",
   data() {
     return {
+      // ========================
       timer: null,
       totalTime: 25 * 60,
       resetButton: false,
       title: "Let the countdown begin!!"
+      // ========================
     };
   },
   // ========================
@@ -244,15 +247,29 @@ export default {
   min-height: 200px;
 }
 
+.question-wrapper {
+  text-align: center;
+}
+
 .question .text {
-  font-size: calc(13px + 0.4vw);
-  min-height: cal(13px + 0.4vw);
-  line-height: calc(13px + 0.4vw);
+  font-size: 24px;
+  color: #384c63;
+  transition: all 1s;
+  line-height: 34px;
   height: 34px;
 }
 
 .question .symbols.show {
   font-size: calc(30px + 3vw);
+}
+
+.symbols.show {
+  font-size: 90px;
+}
+
+.symbols.show {
+  animation: fadeInBlur 1s both;
+  transition: all 1s;
 }
 
 .list-complete-item {
@@ -275,7 +292,6 @@ export default {
 
 .question .pinyin {
   color: #518dd4;
-  max-width: 900px;
   opacity: 0;
 }
 
@@ -288,6 +304,18 @@ export default {
 .pinyin.hide {
   font-size: 24px;
   transition: all 1s;
+}
+
+@keyframes fadeInBlur {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 .answers {
@@ -365,88 +393,6 @@ export default {
   background: #1ebf1b;
 }
 
-@media (max-width: 1370px) {
-  .answer {
-    height: 46px;
-    margin-bottom: 18px;
-  }
-
-  .question .symbols.show,
-  .question .symbols {
-    font-size: 80px;
-  }
-
-  .answer .variant {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 1100px) {
-  .answer {
-    display: flex;
-    width: calc(50px + 15.9vw);
-    min-height: calc(50px + 15.9vw);
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  .answer .variant {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 28px;
-    right: 10px;
-  }
-}
-
-@media (max-width: 800px) {
-  .answer {
-    width: calc(170px + 5vw);
-    min-height: calc(170px + 5vw);
-  }
-
-  .answers-inner {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 40px;
-    margin-left: 40px;
-    max-width: 1300px;
-    flex-wrap: wrap;
-    flex: 1;
-  }
-
-  .answer-row {
-    flex-grow: 1;
-  }
-
-  .answer .variant {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 26px;
-    top: 0;
-    right: 10px;
-  }
-}
-
-@media (max-width: 500px) {
-  .answer {
-    width: calc(100px + 19vw);
-    min-height: calc(100px + 19vw);
-  }
-
-  .answer .text {
-    font-size: calc(15px + 0.4vw);
-  }
-}
-
-@media (max-width: 390px) {
-  .answer {
-    width: calc(60px + 26.69vw);
-    min-height: calc(60px + 26.69vw);
-  }
-}
-
 .answer {
   display: flex;
   width: calc(170px + 5vw);
@@ -489,5 +435,122 @@ export default {
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+@media (max-width: 1370px) {
+  .answer {
+    height: 46px;
+    margin-bottom: 18px;
+  }
+
+  .question .symbols.show,
+  .question .symbols {
+    font-size: 80px;
+  }
+
+  .answer .variant {
+    font-size: 32px;
+  }
+
+  .question {
+    min-height: 200px;
+    margin-bottom: 30px;
+  }
+
+  .question .symbols.show,
+  .question .symbols {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .answer {
+    display: flex;
+    width: calc(50px + 15.9vw);
+    min-height: calc(50px + 15.9vw);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .answer .variant {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 28px;
+    right: 10px;
+  }
+
+  .question {
+    min-height: 180px;
+    margin-bottom: 10px;
+  }
+
+  .question .symbols.show,
+  .question .symbols {
+    font-size: 70px;
+  }
+}
+
+@media (max-width: 800px) {
+  .answer {
+    width: calc(170px + 5vw);
+    min-height: calc(170px + 5vw);
+  }
+
+  .answers-inner {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 40px;
+    margin-left: 40px;
+    max-width: 1300px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  .answer-row {
+    flex-grow: 1;
+  }
+
+  .answer .variant {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 26px;
+    top: 0;
+    right: 10px;
+  }
+
+  .question {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .question .text {
+    font-size: calc(13px + 0.4vw);
+    min-height: calc(13px + 0.4vw);
+    line-height: calc(13px + 0.4vw);
+  }
+
+  .question .symbols.symbols.show {
+    font-size: calc(30px + 3vw);
+  }
+}
+
+@media (max-width: 500px) {
+  .answer {
+    width: calc(100px + 19vw);
+    min-height: calc(100px + 19vw);
+  }
+
+  .answer .text {
+    font-size: calc(15px + 0.4vw);
+  }
+}
+
+@media (max-width: 390px) {
+  .answer {
+    width: calc(60px + 26.69vw);
+    min-height: calc(60px + 26.69vw);
+  }
 }
 </style>
