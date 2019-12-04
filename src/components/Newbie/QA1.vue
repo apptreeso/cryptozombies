@@ -17,8 +17,8 @@
       <div class="answers d-flex mb-0 justify-content-center align-items-center">
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
-            <div class="anim aa1 blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+            <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('1')">
                 <div id="a1" class="answer start">
                   <div class="variant">
                     <span class="pronounce">1</span>
@@ -27,8 +27,8 @@
                 </div>
               </div>
             </div>
-            <div class="anim aa2 blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+            <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('2')">
                 <div id="a2" class="answer start">
                   <div class="variant">
                     <span class="pronounce">2</span>
@@ -39,8 +39,8 @@
             </div>
           </div>
           <div class="answer-row">
-            <div class="anim aa3 blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+            <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('3')">
                 <div id="a3" class="answer start">
                   <div class="variant">
                     <span class="pronounce">3</span>
@@ -49,8 +49,8 @@
                 </div>
               </div>
             </div>
-            <div class="anim blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+            <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('4')">
                 <div id="a4" class="answer start">
                   <div class="variant">
                     <span class="pronounce">4</span>
@@ -71,14 +71,45 @@ export default {
   name: "QA1",
   components: {},
   data() {
-    return {};
+    return {
+      correctAnswer: "3",
+      attemptCount: 0,
+      flagA: true,
+      flagB: true,
+      flagC: true,
+      flagD: true
+    };
   },
   methods: {
-    onHandleClick() {
-      this.$store.dispatch("setAttemptCount", 1);
+    onHandleClick(idx) {
+      console.log(idx);
+      switch (idx) {
+        case "1": {
+          this.flagA = false;
+          break;
+        }
+        case "2": {
+          this.flagB = false;
+          break;
+        }
+        case "3": {
+          this.flagC = false;
+          break;
+        }
+        default:
+          this.flagD = false;
+      }
+
+      this.attemptCount++;
+      this.$store.dispatch("setAttemptCountAction", this.attemptCount);
+      if (idx === this.correctAnswer)
+        this.$store.dispatch("setFlagEndAction", true);
     }
   },
-  computed: {}
+  mounted() {
+    this.$store.dispatch("setAttemptCountAction", 0);
+    this.$store.dispatch("setFlagEndAction", false);
+  }
 };
 </script>
 
