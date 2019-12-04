@@ -11,7 +11,6 @@ export default new Vuex.Store({
   mutations: {
     setAttemptCount(state, payload) {
       state.attemptCount = payload;
-      console.log("state.attemptCount", state.attemptCount);
     },
     setFlagEnd(state, payload) {
       state.flagEnd = payload;

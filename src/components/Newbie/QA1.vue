@@ -3,7 +3,7 @@
     <section class="question">
       <div class="question-wrapper">
         <div class="text">
-          <span style="color:#CB4444">What does this</span> mean
+          <span style="color:#CB4444">1What does this</span> mean
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
@@ -82,7 +82,6 @@ export default {
   },
   methods: {
     onHandleClick(idx) {
-      console.log(idx);
       switch (idx) {
         case "1": {
           this.flagA = false;
