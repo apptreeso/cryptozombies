@@ -18,7 +18,7 @@
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
             <div class="anim aa1 blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+              <div class="answer-block">
                 <div id="a1" class="answer start">
                   <div class="variant">
                     <span class="pronounce">1</span>
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="anim aa2 blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+              <div class="answer-block">
                 <div id="a2" class="answer start">
                   <div class="variant">
                     <span class="pronounce">2</span>
@@ -40,7 +40,7 @@
           </div>
           <div class="answer-row">
             <div class="anim aa3 blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+              <div class="answer-block">
                 <div id="a3" class="answer start">
                   <div class="variant">
                     <span class="pronounce">3</span>
@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="anim blink">
-              <div class="answer-block" v-on:click="onHandleClick()">
+              <div class="answer-block">
                 <div id="a4" class="answer start">
                   <div class="variant">
                     <span class="pronounce">4</span>
@@ -68,16 +68,12 @@
 
 <script>
 export default {
-  name: "QA1",
+  name: "QA3",
   components: {},
   data() {
     return {};
   },
-  methods: {
-    onHandleClick() {
-      this.$store.dispatch("setAttemptCount", 1);
-    }
-  },
+  methods: {},
   computed: {}
 };
 </script>
