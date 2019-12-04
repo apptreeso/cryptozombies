@@ -57,13 +57,17 @@ export default {
       title: "Let the countdown begin!!",
       // ========================
       currentStep: 1,
-      currentQANumber: 1,
-      attemptNumber: 0
+      currentQANumber: 1
     };
   },
   computed: {
     getNextQANumber() {
-      return this.currentStep;
+      console.log(
+        "this.$store.getters.getAttemptCount",
+        this.$store.getters.getAttemptCount
+      );
+      return this.$store.getters.getAttemptCount;
+      // return this.currentStep;
     }
   },
   watch: {
@@ -105,11 +109,8 @@ export default {
         this.totalTime = 0;
         this.resetTimer();
       }
-    },
-    // ========================
-    onClickAnswer() {
-      this.attemptNumber++;
     }
+    // ========================
   }
   // ========================
   // computed: {
