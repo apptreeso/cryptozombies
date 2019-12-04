@@ -62,22 +62,26 @@ export default {
   },
   computed: {
     getNextQANumber() {
-      console.log(
-        "this.$store.getters.getAttemptCount",
-        this.$store.getters.getAttemptCount
-      );
-      return this.$store.getters.getAttemptCount;
-      // return this.currentStep;
+      // var attempCount = this.$store.state.attemptCount;
+      return this.$store.state.flagEnd;
     }
   },
   watch: {
-    setFrustrationLevel() {
-      return this.$store.getters.getAttemptCount;
-    },
-    setCurrentQANumber() {
-      this.currentQANumber = this.currentStep;
+    getNextQANumber: function(flag) {
+      if (flag) {
+        this.currentStep++;
+        this.currentQANumber++;
+      }
     }
   },
+  // watch: {
+  //   setFrustrationLevel() {
+  //     return this.$store.getters.getAttemptCount;
+  //   },
+  //   setCurrentQANumber() {
+  //     this.currentQANumber = this.currentStep;
+  //   }
+  // },
   // ========================
   methods: {
     // ========================

@@ -3,7 +3,7 @@
     <section class="question">
       <div class="question-wrapper">
         <div class="text">
-          <span style="color:#CB4444">What does this</span> mean
+          <span style="color:#CB4444">3What does this</span> mean
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
@@ -17,8 +17,8 @@
       <div class="answers d-flex mb-0 justify-content-center align-items-center">
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
-            <div class="anim aa1 blink">
-              <div class="answer-block">
+            <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('1')">
                 <div id="a1" class="answer start">
                   <div class="variant">
                     <span class="pronounce">1</span>
@@ -27,8 +27,8 @@
                 </div>
               </div>
             </div>
-            <div class="anim aa2 blink">
-              <div class="answer-block">
+            <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('2')">
                 <div id="a2" class="answer start">
                   <div class="variant">
                     <span class="pronounce">2</span>
@@ -39,8 +39,8 @@
             </div>
           </div>
           <div class="answer-row">
-            <div class="anim aa3 blink">
-              <div class="answer-block">
+            <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('3')">
                 <div id="a3" class="answer start">
                   <div class="variant">
                     <span class="pronounce">3</span>
@@ -49,8 +49,8 @@
                 </div>
               </div>
             </div>
-            <div class="anim blink">
-              <div class="answer-block">
+            <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleClick('4')">
                 <div id="a4" class="answer start">
                   <div class="variant">
                     <span class="pronounce">4</span>
@@ -68,13 +68,47 @@
 
 <script>
 export default {
-  name: "QA3",
+  name: "QA1",
   components: {},
   data() {
-    return {};
+    return {
+      correctAnswer: "3",
+      attemptCount: 0,
+      flagA: true,
+      flagB: true,
+      flagC: true,
+      flagD: true
+    };
   },
-  methods: {},
-  computed: {}
+  methods: {
+    onHandleClick(idx) {
+      switch (idx) {
+        case "1": {
+          this.flagA = false;
+          break;
+        }
+        case "2": {
+          this.flagB = false;
+          break;
+        }
+        case "3": {
+          this.flagC = false;
+          break;
+        }
+        default:
+          this.flagD = false;
+      }
+
+      this.attemptCount++;
+      this.$store.dispatch("setAttemptCountAction", this.attemptCount);
+      if (idx === this.correctAnswer)
+        this.$store.dispatch("setFlagEndAction", true);
+    }
+  },
+  mounted() {
+    this.$store.dispatch("setAttemptCountAction", 0);
+    this.$store.dispatch("setFlagEndAction", false);
+  }
 };
 </script>
 
