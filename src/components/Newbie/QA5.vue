@@ -276,8 +276,6 @@ export default {
   justify-content: center;
   margin-left: 20px;
   margin-right: 20px;
-  /* margin-bottom: 20px;
-  animation: fadeInDown 1s ease-out both; */
 }
 
 .answer .variant {

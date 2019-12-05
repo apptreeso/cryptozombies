@@ -74,15 +74,6 @@ export default {
       }
     }
   },
-  // watch: {
-  //   setFrustrationLevel() {
-  //     return this.$store.getters.getAttemptCount;
-  //   },
-  //   setCurrentQANumber() {
-  //     this.currentQANumber = this.currentStep;
-  //   }
-  // },
-  // ========================
   methods: {
     // ========================
     startTimer: function() {
