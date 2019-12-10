@@ -29,6 +29,7 @@
     <QA3 v-if="currentQANumber == 3"></QA3>
     <QA4 v-if="currentQANumber == 4"></QA4>
     <QA5 v-if="currentQANumber == 5"></QA5>
+    <QA6 v-if="currentQANumber == 6"></QA6>
   </div>
 </template>
 
@@ -38,6 +39,7 @@ import QA2 from "@/components/newbie/QA2.vue";
 import QA3 from "@/components/newbie/QA3.vue";
 import QA4 from "@/components/newbie/QA4.vue";
 import QA5 from "@/components/newbie/QA5.vue";
+import QA6 from "@/components/newbie/QA6.vue";
 
 export default {
   name: "AssessmentTest",
@@ -46,16 +48,11 @@ export default {
     QA2,
     QA3,
     QA4,
-    QA5
+    QA5,
+    QA6
   },
   data() {
     return {
-      // ========================
-      timer: null,
-      totalTime: 25 * 60,
-      resetButton: false,
-      title: "Let the countdown begin!!",
-      // ========================
       currentStep: 1,
       currentQANumber: 1
     };
@@ -74,68 +71,13 @@ export default {
       }
     }
   },
-  methods: {
-    // ========================
-    startTimer: function() {
-      this.timer = setInterval(() => this.countdown(), 1000);
-      this.resetButton = true;
-      this.title = "Greatness is within sight!!";
-    },
-    stopTimer: function() {
-      clearInterval(this.timer);
-      this.timer = null;
-      this.resetButton = true;
-      this.title = "Never quit, keep going!!";
-    },
-    resetTimer: function() {
-      this.totalTime = 25 * 60;
-      clearInterval(this.timer);
-      this.timer = null;
-      this.resetButton = false;
-      this.title = "Let the countdown begin!!";
-    },
-    padTime: function(time) {
-      return (time < 10 ? "0" : "") + time;
-    },
-    countdown: function() {
-      if (this.totalTime >= 1) {
-        this.totalTime--;
-      } else {
-        this.totalTime = 0;
-        this.resetTimer();
-      }
-    }
-    // ========================
-  }
-  // ========================
-  // computed: {
-  //   minutes: function() {
-  //     const minutes = Math.floor(this.totalTime / 60);
-  //     return this.padTime(minutes);
-  //   },
-  //   seconds: function() {
-  //     const seconds = this.totalTime - this.minutes * 60;
-  //     return this.padTime(seconds);
-  //   }
-  // }
+  methods: {}
 };
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* #message {
-  color: #DDD;
-  font-size: 50px;
-  margin-bottom: 20px;
-}
-
-#timer {
-  font-size: 200px;
-  line-height: 1;
-  margin-bottom: 40px;
-} */
-
 .menu-wrap {
   position: relative;
   z-index: 10;

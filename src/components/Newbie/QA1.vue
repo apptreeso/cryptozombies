@@ -3,7 +3,7 @@
     <section class="question">
       <div class="question-wrapper">
         <div class="text">
-          <span style="color:#CB4444">1What does this</span> mean
+          <span style="color:#CB4444">1 - What does this</span> mean
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
@@ -18,7 +18,7 @@
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
             <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleClick('1')">
+              <div class="answer-block" @click="onHandleAnswer('1')">
                 <div id="a1" class="answer start">
                   <div class="variant">
                     <span class="pronounce">1</span>
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleClick('2')">
+              <div class="answer-block" @click="onHandleAnswer('2')">
                 <div id="a2" class="answer start">
                   <div class="variant">
                     <span class="pronounce">2</span>
@@ -40,7 +40,7 @@
           </div>
           <div class="answer-row">
             <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleClick('3')">
+              <div class="answer-block" @click="onHandleAnswer('3')">
                 <div id="a3" class="answer start">
                   <div class="variant">
                     <span class="pronounce">3</span>
@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleClick('4')">
+              <div class="answer-block" @click="onHandleAnswer('4')">
                 <div id="a4" class="answer start">
                   <div class="variant">
                     <span class="pronounce">4</span>
@@ -63,6 +63,24 @@
         </div>
       </div>
     </section>
+    <div class="row justify-content-center mt-3">
+      <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
+    </div>
+    <div class="debuginfo row justify-content-center mt-5">
+      <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
+    </div>
+    <div class="debuginfo row justify-content-center">
+      <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
+    </div>
+    <div class="debuginfo row justify-content-center">
+      <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
+    </div>
+    <div class="debuginfo row justify-content-center">
+      <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
+    </div>
+    <div class="debuginfo row justify-content-center">
+      <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
+    </div>
   </div>
 </template>
 
@@ -77,11 +95,19 @@ export default {
       flagA: true,
       flagB: true,
       flagC: true,
-      flagD: true
+      flagD: true,
+      limitSecond: 20,
+      seconds: "00",
+      milliseconds: "00",
+      // for debug
+      flagEightSeconds: false,
+      flagThreeSeconds: false,
+      flagSkip: false,
+      frustrationLevel: 0
     };
   },
   methods: {
-    onHandleClick(idx) {
+    onHandleAnswer(idx) {
       switch (idx) {
         case "1": {
           this.flagA = false;
@@ -99,20 +125,96 @@ export default {
           this.flagD = false;
       }
 
-      this.attemptCount++;
-      this.$store.dispatch("setAttemptCountAction", this.attemptCount);
-      if (idx === this.correctAnswer)
+      if (idx === this.correctAnswer) {
+        if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
+          this.flagThreeSeconds = true;
+          this.frustrationLevel--;
+        }
+
+        this.frustrationLevel--;
+
+        this.$store.dispatch(
+          "setFrustrationLevelAction",
+          this.frustrationLevel
+        );
         this.$store.dispatch("setFlagEndAction", true);
+      }
+    },
+    onHandleSkip() {
+      this.flagSkip = true;
+      this.frustrationLevel += 0.5;
+      this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
+      this.$store.dispatch("setFlagEndAction", true);
+    },
+    runTimer(me) {
+      const interval = 1,
+        second = interval * 100,
+        millisecond = interval;
+
+      let countDown = this.limitSecond * 100,
+        now = 0;
+      let timer = setInterval(function() {
+        let distance = countDown - now;
+        now++;
+
+        me.milliseconds = (distance % second) / millisecond;
+        me.seconds = (distance - me.milliseconds) / second;
+
+        if (parseInt(me.milliseconds) < 10)
+          me.milliseconds = "0" + me.milliseconds;
+        if (parseInt(me.seconds) < 10) me.seconds = "0" + me.seconds;
+
+        if (
+          me.limitSecond - parseInt(me.seconds) > 8 &&
+          !me.flagEightSeconds &&
+          !me.flagSkip
+        ) {
+          me.flagEightSeconds = true;
+          me.frustrationLevel++;
+        }
+
+        if (distance == 0) {
+          clearInterval(timer);
+        }
+      }, 10);
     }
   },
   mounted() {
-    this.$store.dispatch("setAttemptCountAction", 0);
     this.$store.dispatch("setFlagEndAction", false);
+    this.$store.dispatch("setFlagEightSecondsAction", false);
+    this.$store.dispatch("setFlagThreeSecondsAction", false);
+    this.$store.dispatch("setFlagSkipAction", false);
+    this.frustrationLevel = this.$store.state.frustrationLevel;
+    console.log(this.frustrationLevel);
+  },
+  created: function() {
+    this.runTimer(this);
   }
 };
 </script>
 
 <style scoped>
+.skip {
+  font-size: 2em;
+  color: #dc3545;
+}
+
+.debuginfo {
+  margin: 0 auto;
+  display: flex;
+  align-items: right;
+  color: #333;
+  text-align: right;
+  margin: 0 0 0 3em;
+  padding: 0;
+  right: 0;
+}
+
+.debuginfo label {
+  font-size: 1.5em;
+  padding-right: 0.5em;
+}
+
 .question {
   min-height: 200px;
 }
