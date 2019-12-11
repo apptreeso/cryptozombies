@@ -1,22 +1,85 @@
 <template>
   <div>
-    <div class="row justify-content-center mt-6">The End...&nbsp; Redirect...</div>
+    <section class="question">
+      <div class="question-wrapper">
+        <div class="text">
+          <span style="color:#CB4444">What does this</span> mean
+          <span style="color:#CB4444">?</span>
+        </div>
+        <div class="symbols show">
+          <!-- <span id="char0" class="list-complete-item">谢</span> -->
+          <!-- <span id="char1" class="list-complete-item">谢</span> -->
+          <span id="char0" class="list-complete-item">What is "See you next time" in Chinese</span>
+        </div>
+        <!-- <div class="pinyin hide delay">Xièxiè</div> -->
+      </div>
+    </section>
+    <section>
+      <div class="answers d-flex mb-0 justify-content-center align-items-center">
+        <div class="answers-inner d-flex justify-content-center">
+          <div class="answer-row">
+            <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('1')">
+                <div id="a1" class="answer start">
+                  <div class="variant">
+                    <span class="pronounce">1</span>
+                  </div>
+                  <div class="text">见</div>
+                </div>
+              </div>
+            </div>
+            <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('2')">
+                <div id="a2" class="answer start">
+                  <div class="variant">
+                    <span class="pronounce">2</span>
+                  </div>
+                  <div class="text">下次</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="answer-row">
+            <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('3')">
+                <div id="a3" class="answer start">
+                  <div class="variant">
+                    <span class="pronounce">3</span>
+                  </div>
+                  <div class="text">下次见</div>
+                </div>
+              </div>
+            </div>
+            <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('4')">
+                <div id="a4" class="answer start">
+                  <div class="variant">
+                    <span class="pronounce">4</span>
+                  </div>
+                  <div class="text">次</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="row justify-content-center mt-3">
       <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
     </div>
-    <div class="debuginfo mt-5">
+    <div class="debuginfo row justify-content-center mt-5">
       <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
     </div>
-    <div class="debuginfo">
+    <div class="debuginfo row justify-content-center">
       <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
     </div>
-    <div class="debuginfo">
+    <div class="debuginfo row justify-content-center">
       <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
     </div>
-    <div class="debuginfo">
+    <div class="debuginfo row justify-content-center">
       <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
     </div>
-    <div class="debuginfo">
+    <div class="debuginfo row justify-content-center">
       <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
     </div>
   </div>
@@ -24,7 +87,7 @@
 
 <script>
 export default {
-  name: "QA1",
+  name: "QA6",
   components: {},
   data() {
     return {
