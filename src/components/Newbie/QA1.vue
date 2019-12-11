@@ -128,10 +128,10 @@ export default {
       if (idx === this.correctAnswer) {
         if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
           this.flagThreeSeconds = true;
-          this.frustrationLevel--;
+          // this.frustrationLevel--;
         }
 
-        this.frustrationLevel--;
+        // this.frustrationLevel--;
 
         this.$store.dispatch(
           "setFrustrationLevelAction",
@@ -170,7 +170,7 @@ export default {
           !me.flagSkip
         ) {
           me.flagEightSeconds = true;
-          me.frustrationLevel++;
+          // me.frustrationLevel++;
         }
 
         if (distance == 0) {
@@ -185,7 +185,6 @@ export default {
     this.$store.dispatch("setFlagThreeSecondsAction", false);
     this.$store.dispatch("setFlagSkipAction", false);
     this.frustrationLevel = this.$store.state.frustrationLevel;
-    console.log(this.frustrationLevel);
   },
   created: function() {
     this.runTimer(this);
