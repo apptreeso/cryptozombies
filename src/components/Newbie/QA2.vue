@@ -3,14 +3,15 @@
     <section class="question">
       <div class="question-wrapper">
         <div class="text">
-          <span style="color:#CB4444">2 - What does this</span> mean
+          <span style="color:#CB4444">What does this</span> mean
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <span id="char0" class="list-complete-item">谢</span>
-          <span id="char1" class="list-complete-item">谢</span>
+          <!-- <span id="char0" class="list-complete-item">谢</span> -->
+          <!-- <span id="char1" class="list-complete-item">谢</span> -->
+          <span id="char1" class="list-complete-item">What is "Exit" in Chinese?</span>
         </div>
-        <div class="pinyin hide delay">Xièxiè</div>
+        <!-- <div class="pinyin hide delay">Xièxiè</div> -->
       </div>
     </section>
     <section>
@@ -23,7 +24,7 @@
                   <div class="variant">
                     <span class="pronounce">1</span>
                   </div>
-                  <div class="text">Hello</div>
+                  <div class="text">出口</div>
                 </div>
               </div>
             </div>
@@ -33,7 +34,7 @@
                   <div class="variant">
                     <span class="pronounce">2</span>
                   </div>
-                  <div class="text">Thank you</div>
+                  <div class="text">人行道</div>
                 </div>
               </div>
             </div>
@@ -45,7 +46,7 @@
                   <div class="variant">
                     <span class="pronounce">3</span>
                   </div>
-                  <div class="text">Be careful</div>
+                  <div class="text">入口</div>
                 </div>
               </div>
             </div>
@@ -55,7 +56,7 @@
                   <div class="variant">
                     <span class="pronounce">4</span>
                   </div>
-                  <div class="text">Bless you!</div>
+                  <div class="text">出入</div>
                 </div>
               </div>
             </div>
@@ -86,7 +87,7 @@
 
 <script>
 export default {
-  name: "QA1",
+  name: "QA2",
   components: {},
   data() {
     return {

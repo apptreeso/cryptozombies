@@ -9,7 +9,7 @@
         <div class="symbols show">
           <!-- <span id="char0" class="list-complete-item">谢</span> -->
           <!-- <span id="char1" class="list-complete-item">谢</span> -->
-          <span id="char1" class="list-complete-item">What is "Sidewalk" in Chinese</span>
+          <span id="char0" class="list-complete-item">What is "Population" in Chinese</span>
         </div>
         <!-- <div class="pinyin hide delay">Xièxiè</div> -->
       </div>
@@ -24,7 +24,7 @@
                   <div class="variant">
                     <span class="pronounce">1</span>
                   </div>
-                  <div class="text">人行道</div>
+                  <div class="text">人口</div>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@
                   <div class="variant">
                     <span class="pronounce">2</span>
                   </div>
-                  <div class="text">行道</div>
+                  <div class="text">入口</div>
                 </div>
               </div>
             </div>
@@ -56,7 +56,7 @@
                   <div class="variant">
                     <span class="pronounce">4</span>
                   </div>
-                  <div class="text">入口</div>
+                  <div class="text">出入</div>
                 </div>
               </div>
             </div>
@@ -87,7 +87,7 @@
 
 <script>
 export default {
-  name: "QA3",
+  name: "QA8",
   components: {},
   data() {
     return {
