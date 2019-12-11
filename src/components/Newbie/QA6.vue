@@ -123,7 +123,6 @@ export default {
     this.$store.dispatch("setFlagThreeSecondsAction", false);
     this.$store.dispatch("setFlagSkipAction", false);
     this.frustrationLevel = this.$store.state.frustrationLevel;
-    console.log(this.frustrationLevel);
   },
   created: function() {
     this.runTimer(this);
