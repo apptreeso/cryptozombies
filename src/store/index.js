@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    flagEnd: false,
+    flagEnd: "none", // true, false, none
     flagEightSeconds: false,
     flagThreeSecods: false,
     flagSkip: false,
