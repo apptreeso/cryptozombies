@@ -30,6 +30,9 @@
     <QA4 v-if="currentQANumber == 4"></QA4>
     <QA5 v-if="currentQANumber == 5"></QA5>
     <QA6 v-if="currentQANumber == 6"></QA6>
+    <QA7 v-if="currentQANumber == 7"></QA7>
+    <QA8 v-if="currentQANumber == 8"></QA8>
+    <QA9 v-if="currentQANumber == 9"></QA9>
   </div>
 </template>
 
@@ -40,6 +43,9 @@ import QA3 from "@/components/newbie/QA3.vue";
 import QA4 from "@/components/newbie/QA4.vue";
 import QA5 from "@/components/newbie/QA5.vue";
 import QA6 from "@/components/newbie/QA6.vue";
+import QA7 from "@/components/newbie/QA7.vue";
+import QA8 from "@/components/newbie/QA8.vue";
+import QA9 from "@/components/newbie/QA9.vue";
 
 export default {
   name: "AssessmentTest",
@@ -49,7 +55,10 @@ export default {
     QA3,
     QA4,
     QA5,
-    QA6
+    QA6,
+    QA7,
+    QA8,
+    QA9
   },
   data() {
     return {
@@ -59,15 +68,42 @@ export default {
   },
   computed: {
     getNextQANumber() {
-      // var attempCount = this.$store.state.attemptCount;
-      return this.$store.state.flagEnd;
+      return this.$store.state.flagEnd !== "none" ? true : false;
     }
   },
   watch: {
-    getNextQANumber: function(flag) {
-      if (flag) {
+    getNextQANumber: function(flagNext) {
+      if (flagNext) {
+        let nextQA = 0,
+          frustrationLevel = this.$store.state.frustrationLevel;
+        if (this.currentStep === 1) {
+          nextQA = 2;
+        } else if (this.currentStep === 2) {
+          if (frustrationLevel >= -2 && frustrationLevel <= 1) {
+            nextQA = 3;
+          } else {
+            nextQA = 4;
+          }
+        } else if (this.currentStep === 3) {
+          if (frustrationLevel >= -4 && frustrationLevel <= 0) {
+            nextQA = 6;
+          } else {
+            nextQA = 5;
+          }
+        } else if (this.currentStep === 4) {
+          if (frustrationLevel >= -6 && frustrationLevel <= -4) {
+            nextQA = 8;
+          } else if (frustrationLevel >= -3.5 && frustrationLevel <= 3) {
+            nextQA = 7;
+          } else {
+            nextQA = 6;
+          }
+        } else {
+          nextQA = 9;
+        }
+
         this.currentStep++;
-        this.currentQANumber++;
+        this.currentQANumber = nextQA;
       }
     }
   },

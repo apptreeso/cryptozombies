@@ -91,7 +91,7 @@ export default {
   components: {},
   data() {
     return {
-      correctAnswer: "3",
+      correctAnswer: "1",
       attemptCount: 0,
       flagA: true,
       flagB: true,
@@ -138,14 +138,22 @@ export default {
           "setFrustrationLevelAction",
           this.frustrationLevel
         );
-        this.$store.dispatch("setFlagEndAction", true);
+        this.$store.dispatch("setFlagEndAction", "true");
+      } else {
+        this.frustrationLevel++;
+
+        this.$store.dispatch(
+          "setFrustrationLevelAction",
+          this.frustrationLevel
+        );
+        this.$store.dispatch("setFlagEndAction", "false");
       }
     },
     onHandleSkip() {
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
       this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
-      this.$store.dispatch("setFlagEndAction", true);
+      this.$store.dispatch("setFlagEndAction", "true");
     },
     runTimer(me) {
       const interval = 1,
@@ -181,7 +189,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("setFlagEndAction", false);
+    this.$store.dispatch("setFlagEndAction", "none");
     this.$store.dispatch("setFlagEightSecondsAction", false);
     this.$store.dispatch("setFlagThreeSecondsAction", false);
     this.$store.dispatch("setFlagSkipAction", false);

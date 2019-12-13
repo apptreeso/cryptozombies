@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="row justify-content-center mt-6" style="font-size: 3em">The End...&nbsp; Redirect...</div>
+    <div
+      class="row justify-content-center mt-6"
+      style="font-size: 3em"
+    >You scored {{parseInt(Math.abs(frustrationLevel-8.5)/16.5*100)}}</div>
     <!-- <div class="row justify-content-center mt-3">
       <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
     </div>-->
@@ -75,14 +79,14 @@ export default {
           "setFrustrationLevelAction",
           this.frustrationLevel
         );
-        this.$store.dispatch("setFlagEndAction", true);
+        this.$store.dispatch("setFlagEndAction", "true");
       }
     },
     onHandleSkip() {
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
       this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
-      this.$store.dispatch("setFlagEndAction", true);
+      this.$store.dispatch("setFlagEndAction", "true");
     },
     runTimer(me) {
       const interval = 1,
@@ -118,7 +122,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("setFlagEndAction", false);
+    this.$store.dispatch("setFlagEndAction", "none");
     this.$store.dispatch("setFlagEightSecondsAction", false);
     this.$store.dispatch("setFlagThreeSecondsAction", false);
     this.$store.dispatch("setFlagSkipAction", false);
