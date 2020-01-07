@@ -9,7 +9,7 @@
         <div class="symbols show">
           <!-- <span id="char0" class="list-complete-item">谢</span> -->
           <!-- <span id="char1" class="list-complete-item">谢</span> -->
-          <span id="char1" class="list-complete-item">What is "Sidewalk" in Chinese</span>
+          <span id="char0" class="list-complete-item">What is "Sidewalk" in Chinese</span>
         </div>
         <!-- <div class="pinyin hide delay">Xièxiè</div> -->
       </div>
@@ -212,7 +212,7 @@ export default {
   display: flex;
   align-items: right;
   color: #333;
-  text-align: right;
+  text-align: center;
   margin: 0 0 0 3em;
   padding: 0;
   right: 0;
@@ -409,7 +409,7 @@ export default {
 
 .answer .text {
   font-weight: 700;
-  font-size: calc(16px + 0.4vw);
+  font-size: calc(60px + 0.4vw);
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
@@ -521,7 +521,7 @@ export default {
   }
 
   .answer .text {
-    font-size: calc(15px + 0.4vw);
+    font-size: calc(42px + 0.4vw);
   }
 }
 

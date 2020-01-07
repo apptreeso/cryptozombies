@@ -13,7 +13,7 @@ export default {
 
 <style>
 body {
-  font-family: "Roboto", Helvetica, Arial, sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
