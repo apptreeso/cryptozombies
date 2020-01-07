@@ -1,9 +1,7 @@
 <template>
   <div>
-    <div class="row justify-content-center mt-6" style="font-size: 3em">The End...&nbsp; Redirect...</div>
     <div
-      class="row justify-content-center mt-6"
-      style="font-size: 3em"
+      class="row justify-content-center mt-6 debuginfo-title"
     >You scored {{parseInt(Math.abs(frustrationLevel-8.5)/16.5*100)}}</div>
     <!-- <div class="row justify-content-center mt-3">
       <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
@@ -140,12 +138,17 @@ export default {
   color: #dc3545;
 }
 
+.debuginfo-title {
+  color: #dc3545;
+  font-size: calc(42px + 0.4vw);
+}
+
 .debuginfo {
   margin: 0 auto;
   display: flex;
   align-items: right;
-  color: #333;
-  text-align: right;
+  color: #dc3545;
+  text-align: center;
   margin: 0 0 0 3em;
   padding: 0;
   right: 0;

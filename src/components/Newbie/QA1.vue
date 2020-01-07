@@ -206,7 +206,7 @@ export default {
   display: flex;
   align-items: right;
   color: #333;
-  text-align: right;
+  text-align: center;
   margin: 0 0 0 3em;
   padding: 0;
   right: 0;
@@ -249,7 +249,6 @@ export default {
 .list-complete-item {
   transition: all 1s;
   display: inline-block;
-  margin-right: 10px;
 }
 
 .pinyin hide delay {
@@ -403,7 +402,7 @@ export default {
 
 .answer .text {
   font-weight: 700;
-  font-size: calc(16px + 0.4vw);
+  font-size: calc(60px + 0.4vw);
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
@@ -515,7 +514,7 @@ export default {
   }
 
   .answer .text {
-    font-size: calc(15px + 0.4vw);
+    font-size: calc(42px + 0.4vw);
   }
 }
 
