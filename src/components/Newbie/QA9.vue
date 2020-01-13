@@ -1,11 +1,8 @@
 <template>
   <div>
     <div
-      class="row justify-content-center mt-6 debuginfo-title"
+      class="row justify-content-center mt-6 debuginfo-title mx-0"
     >You scored {{parseInt(Math.abs(frustrationLevel-8.5)/16.5*100)}}</div>
-    <!-- <div class="row justify-content-center mt-3">
-      <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
-    </div>-->
     <div class="row justify-content-center debuginfo mt-5">
       <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
     </div>
@@ -149,14 +146,10 @@ export default {
   align-items: right;
   color: #dc3545;
   text-align: center;
-  margin: 0 0 0 3em;
-  padding: 0;
-  right: 0;
 }
 
 .debuginfo label {
   font-size: 1.5em;
-  padding-right: 0.5em;
 }
 
 .question {

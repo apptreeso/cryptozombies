@@ -6,7 +6,7 @@
           <div class="menu"></div>
           <div class="step">
             <span class="current">{{currentStep}}</span>
-            <span class="rest">/8</span>
+            <span class="rest">/6</span>
           </div>
         </div>
         <div class="d-flex right-controls-wrap">
