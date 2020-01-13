@@ -7,11 +7,8 @@
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <!-- <span id="char0" class="list-complete-item">谢</span> -->
-          <!-- <span id="char1" class="list-complete-item">谢</span> -->
           <span id="char0" class="list-complete-item">What is "Next time" in Chinese</span>
         </div>
-        <!-- <div class="pinyin hide delay">Xièxiè</div> -->
       </div>
     </section>
     <section>
@@ -64,7 +61,7 @@
         </div>
       </div>
     </section>
-    <div class="row justify-content-center mt-3">
+    <div class="row justify-content-center mt-3 mx-0">
       <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
     </div>
     <div class="debuginfo row justify-content-center mt-5">
@@ -213,14 +210,10 @@ export default {
   align-items: right;
   color: #333;
   text-align: center;
-  margin: 0 0 0 3em;
-  padding: 0;
-  right: 0;
 }
 
 .debuginfo label {
   font-size: 1.5em;
-  padding-right: 0.5em;
 }
 
 .question {
