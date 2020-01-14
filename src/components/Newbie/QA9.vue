@@ -36,7 +36,7 @@ export default {
       limitSecond: 20,
       seconds: "00",
       milliseconds: "00",
-      // for debug
+      // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
       flagSkip: false,
