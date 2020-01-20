@@ -2,7 +2,7 @@
   <div>
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
-        <div class="timer-bar-left" :style="{width: this.leftBarWidth}"></div>
+        <div class="timer-bar-left" :style="{ width: this.leftBarWidth }"></div>
         <div class="timer-bar-right"></div>
       </div>
     </section>
@@ -13,15 +13,22 @@
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <span id="char0" class="list-complete-item">What is "Entrance" in Chinese?</span>
+          <span id="char0" class="list-complete-item"
+            >What is "Entrance" in Chinese?</span
+          >
         </div>
       </div>
     </section>
     <section>
-      <div class="answers d-flex mb-0 justify-content-center align-items-center">
+      <div
+        class="answers d-flex mb-0 justify-content-center align-items-center"
+      >
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
-            <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
+            <div
+              class="anim aa1 blink"
+              :style="{ visibility: flagA ? 'visible' : 'hidden' }"
+            >
               <div class="answer-block" @click="onHandleAnswer('1')">
                 <div id="a1" class="answer start">
                   <div class="variant">
@@ -31,7 +38,10 @@
                 </div>
               </div>
             </div>
-            <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
+            <div
+              class="anim aa2 blink"
+              :style="{ visibility: flagB ? 'visible' : 'hidden' }"
+            >
               <div class="answer-block" @click="onHandleAnswer('2')">
                 <div id="a2" class="answer start">
                   <div class="variant">
@@ -43,7 +53,10 @@
             </div>
           </div>
           <div class="answer-row">
-            <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
+            <div
+              class="anim aa3 blink"
+              :style="{ visibility: flagC ? 'visible' : 'hidden' }"
+            >
               <div class="answer-block" @click="onHandleAnswer('3')">
                 <div id="a3" class="answer start">
                   <div class="variant">
@@ -53,7 +66,10 @@
                 </div>
               </div>
             </div>
-            <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
+            <div
+              class="anim blink"
+              :style="{ visibility: flagD ? 'visible' : 'hidden' }"
+            >
               <div class="answer-block" @click="onHandleAnswer('4')">
                 <div id="a4" class="answer start">
                   <div class="variant">
@@ -68,22 +84,24 @@
       </div>
     </section>
     <div class="row justify-content-center mt-3 mx-0">
-      <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
+      <b-button variant="info" class="skip px-5" @click="onHandleSkip"
+        >I don't know</b-button
+      >
     </div>
     <div class="debuginfo row justify-content-center mt-5">
-      <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
+      <label>Timer:&nbsp;&nbsp;{{ seconds }}:{{ milliseconds }}</label>
     </div>
     <div class="debuginfo row justify-content-center">
-      <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
+      <label>3 Seconds:&nbsp;&nbsp;{{ flagThreeSeconds }}</label>
     </div>
     <div class="debuginfo row justify-content-center">
-      <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
+      <label>8 Seconds:&nbsp;&nbsp;{{ flagEightSeconds }}</label>
     </div>
     <div class="debuginfo row justify-content-center">
-      <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
+      <label>I don't know:&nbsp;&nbsp;{{ flagSkip }}</label>
     </div>
     <div class="debuginfo row justify-content-center">
-      <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
+      <label>Frustration Level:&nbsp;&nbsp;{{ frustrationLevel }}</label>
     </div>
   </div>
 </template>
@@ -103,6 +121,7 @@ export default {
       limitSecond: 20,
       seconds: "00",
       milliseconds: "00",
+      leftBarWidth: "100vw",
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
@@ -125,9 +144,12 @@ export default {
           this.flagC = false;
           break;
         }
-        default:
+        case "4": {
           this.flagD = false;
+        }
       }
+
+      var audio = null;
 
       if (idx === this.correctAnswer) {
         if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
@@ -137,8 +159,23 @@ export default {
           "setFrustrationLevelAction",
           this.frustrationLevel
         );
+
+        // Play audio
+        audio = new Audio(
+          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+        );
+        audio.play();
+
+        // Dispatch true
         this.$store.dispatch("setFlagEndAction", "true");
       } else {
+        // Play audio
+        audio = new Audio(
+          "http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3"
+        );
+        audio.play();
+
+        // Dispatch false
         this.$store.dispatch("setFlagEndAction", "false");
       }
     },
@@ -160,7 +197,7 @@ export default {
         now++;
 
         // Update Timer Bar
-        me.leftBarWidth = distance / countDown * 100 + 'vw';
+        me.leftBarWidth = (distance / countDown) * 100 + "vw";
 
         // Calculate Timer
         me.milliseconds = (distance % second) / millisecond;
@@ -180,6 +217,7 @@ export default {
 
         if (distance == 0) {
           clearInterval(timer);
+          this.onHandleAnswer("-1");
         }
       }, 10);
     }
@@ -219,7 +257,7 @@ export default {
   display: flex;
   height: 10px;
   border-radius: 10px;
-  box-shadow: 0 50px 50px rgba(0,0,0,.15);
+  box-shadow: 0 50px 50px rgba(0, 0, 0, 0.15);
 }
 
 .timer-bar-left {

@@ -103,6 +103,7 @@ export default {
       limitSecond: 20,
       seconds: "00",
       milliseconds: "00",
+      leftBarWidth: '100vw',
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
