@@ -17,13 +17,6 @@
         </div>
       </div>
     </section>
-    <div>
-      <div class="timer-wrap d-flex">
-        <div class="timer-bar-left"></div>
-        <div class="timer-bar-right"></div>
-      </div>
-      <div class="bottom-spacer"></div>
-    </div>
     <QA1 v-if="currentQANumber == 1"></QA1>
     <QA2 v-if="currentQANumber == 2"></QA2>
     <QA3 v-if="currentQANumber == 3"></QA3>
