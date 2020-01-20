@@ -1,5 +1,11 @@
 <template>
   <div>
+    <section class="timer-wrapper mb-4">
+      <div class="d-flex">
+        <div class="timer-bar-left" :style="{width: this.leftBarWidth}"></div>
+        <div class="timer-bar-right"></div>
+      </div>
+    </section>
     <section class="question">
       <div class="question-wrapper">
         <div class="text">
@@ -153,6 +159,10 @@ export default {
         let distance = countDown - now;
         now++;
 
+        // Update Timer Bar
+        me.leftBarWidth = distance / countDown * 100 + 'vw';
+
+        // Calculate Timer
         me.milliseconds = (distance % second) / millisecond;
         me.seconds = (distance - me.milliseconds) / second;
 
@@ -203,6 +213,23 @@ export default {
 
 .debuginfo label {
   font-size: 1.5em;
+}
+
+.timer-wrapper {
+  display: flex;
+  height: 10px;
+  border-radius: 10px;
+  box-shadow: 0 50px 50px rgba(0,0,0,.15);
+}
+
+.timer-bar-left {
+  background: #cb4444;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.timer-bar-right {
+  width: 100vw;
 }
 
 .question {

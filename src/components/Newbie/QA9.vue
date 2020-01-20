@@ -136,6 +136,7 @@ export default {
 }
 
 .debuginfo-title {
+  margin-top: 60px;
   color: #dc3545;
   font-size: calc(42px + 0.4vw);
 }
