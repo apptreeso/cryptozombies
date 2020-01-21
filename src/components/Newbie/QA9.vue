@@ -33,7 +33,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 30,
+      limitSecond: 3,
       seconds: "00",
       milliseconds: "00",
       // For debug
@@ -58,8 +58,9 @@ export default {
           this.flagC = false;
           break;
         }
-        default:
+        case "4": {
           this.flagD = false;
+        }
       }
 
       if (idx === this.correctAnswer) {
