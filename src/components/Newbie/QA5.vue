@@ -100,7 +100,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 20,
+      limitSecond: 30,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: '100vw',
