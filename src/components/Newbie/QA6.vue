@@ -103,7 +103,7 @@ export default {
       limitSecond: 30,
       seconds: "00",
       milliseconds: "00",
-      leftBarWidth: '100vw',
+      leftBarWidth: "100vw",
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
@@ -130,12 +130,21 @@ export default {
           this.flagD = false;
       }
 
+      let audio = null;
+
       if (idx === this.correctAnswer) {
         if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
           this.flagThreeSeconds = true;
           this.frustrationLevel--;
         }
 
+        // Play audio
+        audio = new Audio(
+          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+        );
+        audio.play();
+
+        // Dispatch true
         this.frustrationLevel--;
 
         this.$store.dispatch(
@@ -144,6 +153,13 @@ export default {
         );
         this.$store.dispatch("setFlagEndAction", "true");
       } else {
+        // Play audio
+        audio = new Audio(
+          "http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3"
+        );
+        audio.play();
+
+        // Dispatch false
         this.frustrationLevel++;
 
         this.$store.dispatch(
@@ -154,6 +170,14 @@ export default {
       }
     },
     onHandleSkip() {
+      let audio = null;
+
+      // Play audio
+      audio = new Audio(
+        "http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3"
+      );
+      audio.play();
+
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
       this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
@@ -171,7 +195,7 @@ export default {
         now++;
 
         // Update Timer Bar
-        me.leftBarWidth = distance / countDown * 100 + 'vw';
+        me.leftBarWidth = (distance / countDown) * 100 + "vw";
 
         // Calculate Timer
         me.milliseconds = (distance % second) / millisecond;
@@ -231,7 +255,7 @@ export default {
   display: flex;
   height: 10px;
   border-radius: 10px;
-  box-shadow: 0 50px 50px rgba(0,0,0,.15);
+  box-shadow: 0 50px 50px rgba(0, 0, 0, 0.15);
 }
 
 .timer-bar-left {
