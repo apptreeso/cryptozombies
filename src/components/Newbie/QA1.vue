@@ -100,10 +100,11 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 30,
+      limitSecond: 3,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
+      timer: null,
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
@@ -132,6 +133,7 @@ export default {
       }
 
       let audio = null;
+      clearInterval(this.timer);
 
       if (idx === this.correctAnswer) {
         if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
@@ -183,7 +185,7 @@ export default {
 
       let countDown = this.limitSecond * 100,
         now = 0;
-      let timer = setInterval(function() {
+      me.timer = setInterval(function() {
         let distance = countDown - now;
         now++;
 
@@ -207,8 +209,8 @@ export default {
         }
 
         if (distance == 0) {
-          clearInterval(timer);
-          this.onHandleSkip();
+          clearInterval(me.timer);
+          me.onHandleSkip();
         }
       }, 10);
     }
