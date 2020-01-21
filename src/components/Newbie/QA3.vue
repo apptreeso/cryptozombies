@@ -175,6 +175,7 @@ export default {
     },
     onHandleSkip() {
       let audio = null;
+      clearInterval(this.timer);
 
       // Play audio
       audio = new Audio(
@@ -219,7 +220,6 @@ export default {
         }
 
         if (distance == 0) {
-          clearInterval(me.timer);
           me.onHandleSkip();
         }
       }, 10);
