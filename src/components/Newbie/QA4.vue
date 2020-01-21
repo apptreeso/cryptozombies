@@ -2,7 +2,7 @@
   <div>
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
-        <div class="timer-bar-left" :style="{width: this.leftBarWidth}"></div>
+        <div class="timer-bar-left" :style="{width: leftBarWidth}"></div>
         <div class="timer-bar-right"></div>
       </div>
     </section>
