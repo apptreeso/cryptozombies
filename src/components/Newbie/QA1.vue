@@ -131,16 +131,12 @@ export default {
         }
       }
 
-      var audio = null;
+      let audio = null;
 
       if (idx === this.correctAnswer) {
         if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
           this.flagThreeSeconds = true;
         }
-        this.$store.dispatch(
-          "setFrustrationLevelAction",
-          this.frustrationLevel
-        );
 
         // Play audio
         audio = new Audio(
@@ -149,6 +145,11 @@ export default {
         audio.play();
 
         // Dispatch true
+        this.$store.dispatch(
+          "setFrustrationLevelAction",
+          this.frustrationLevel
+        );
+
         this.$store.dispatch("setFlagEndAction", "true");
       } else {
         // Play audio
@@ -162,6 +163,14 @@ export default {
       }
     },
     onHandleSkip() {
+      let audio = null;
+
+      // Play audio
+      audio = new Audio(
+        "http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3"
+      );
+      audio.play();
+
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
       this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
