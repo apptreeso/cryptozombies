@@ -13,22 +13,15 @@
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <span id="char0" class="list-complete-item"
-            >What is "Entrance" in Chinese?</span
-          >
+          <span id="char0" class="list-complete-item">What is "Entrance" in Chinese?</span>
         </div>
       </div>
     </section>
     <section>
-      <div
-        class="answers d-flex mb-0 justify-content-center align-items-center"
-      >
+      <div class="answers d-flex mb-0 justify-content-center align-items-center">
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
-            <div
-              class="anim aa1 blink"
-              :style="{ visibility: flagA ? 'visible' : 'hidden' }"
-            >
+            <div class="anim aa1 blink" :style="{ visibility: flagA ? 'visible' : 'hidden' }">
               <div class="answer-block" @click="onHandleAnswer('1')">
                 <div id="a1" class="answer start">
                   <div class="variant">
@@ -38,10 +31,7 @@
                 </div>
               </div>
             </div>
-            <div
-              class="anim aa2 blink"
-              :style="{ visibility: flagB ? 'visible' : 'hidden' }"
-            >
+            <div class="anim aa2 blink" :style="{ visibility: flagB ? 'visible' : 'hidden' }">
               <div class="answer-block" @click="onHandleAnswer('2')">
                 <div id="a2" class="answer start">
                   <div class="variant">
@@ -53,10 +43,7 @@
             </div>
           </div>
           <div class="answer-row">
-            <div
-              class="anim aa3 blink"
-              :style="{ visibility: flagC ? 'visible' : 'hidden' }"
-            >
+            <div class="anim aa3 blink" :style="{ visibility: flagC ? 'visible' : 'hidden' }">
               <div class="answer-block" @click="onHandleAnswer('3')">
                 <div id="a3" class="answer start">
                   <div class="variant">
@@ -66,10 +53,7 @@
                 </div>
               </div>
             </div>
-            <div
-              class="anim blink"
-              :style="{ visibility: flagD ? 'visible' : 'hidden' }"
-            >
+            <div class="anim blink" :style="{ visibility: flagD ? 'visible' : 'hidden' }">
               <div class="answer-block" @click="onHandleAnswer('4')">
                 <div id="a4" class="answer start">
                   <div class="variant">
@@ -84,9 +68,7 @@
       </div>
     </section>
     <div class="row justify-content-center mt-3 mx-0">
-      <b-button variant="info" class="skip px-5" @click="onHandleSkip"
-        >I don't know</b-button
-      >
+      <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
     </div>
     <div class="debuginfo row justify-content-center mt-5">
       <label>Timer:&nbsp;&nbsp;{{ seconds }}:{{ milliseconds }}</label>
@@ -118,7 +100,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 20,
+      limitSecond: 30,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
