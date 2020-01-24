@@ -128,6 +128,22 @@ export default {
   margin-right: 40px;
 }
 
+.menu:hover {
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .step {
   font-size: 50px;
   top: 9px;
