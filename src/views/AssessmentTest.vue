@@ -1,7 +1,8 @@
 <template>
   <div>
     <section class="menu-wrap">
-      <div class="row mx-auto justify-content-center align-items-center navbar-test">
+      <!-- <div class="row mx-auto justify-content-center align-items-center navbar-test"> -->
+      <div class="menu-block">
         <div class="d-flex controls-group">
           <div class="menu"></div>
           <div class="step">
@@ -12,6 +13,7 @@
         <div class="d-flex right-controls-wrap">
           <label class="checkbox">
             <input type="checkbox" class="visually-hidden" />
+            <span class="checkbox__text" />
           </label>
           <div class="button-save">Save &amp; Exit</div>
         </div>
@@ -113,6 +115,18 @@ export default {
   background: #304155;
 }
 
+.menu-block {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  max-width: 1300px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin: auto;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .navbar-test {
   height: 70px;
 }
@@ -160,11 +174,35 @@ export default {
   font-weight: 400;
 }
 
+label {
+  cursor: pointer;
+}
+
 .visually-hidden {
   position: absolute;
   z-index: -1;
   opacity: 0;
   margin: 10px 0 0 20px;
+}
+
+input[type="checkbox" i] {
+  background-color: initial;
+  cursor: default;
+  -webkit-appearance: checkbox;
+  box-sizing: border-box;
+  padding: initial;
+  border: initial;
+}
+
+.checkbox__text {
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox__text:before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIW…B41kurx0ITNYPOsd4bggJP+i9lCPBj5z04Dm4jRoxogVfFReHuykT/aQAAAABJRU5ErkJggg==);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .button-save {
@@ -200,5 +238,11 @@ export default {
 
 .bottom-spacer {
   height: 0;
+}
+
+@media (max-width: 1370px) {
+  .menu-block {
+    height: 70px;
+  }
 }
 </style>
