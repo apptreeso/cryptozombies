@@ -100,7 +100,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 30,
+      limitSecond: 300,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -452,6 +452,26 @@ export default {
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+#a1:hover {
+  box-shadow: 0 0 10px 10px red;
+}
+
+#a2:hover {
+  box-shadow: 0 0 10px 10px blue;
+}
+
+#a3:hover {
+  box-shadow: 0 0 10px 10px #975300;
+}
+
+#a4:hover {
+  box-shadow: 0 0 10px 10px green;
+}
+
+.skip:hover {
+  box-shadow: 0 0 10px 10px #01695b;
 }
 
 @media (max-width: 1370px) {
