@@ -156,7 +156,7 @@ export default {
 }
 
 .menu:hover {
-  animation-name: rotate;
+  animation: rotate;
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
