@@ -74,7 +74,7 @@ export default {
         if (this.currentStep === 1) {
           nextQA = 2;
         } else if (this.currentStep === 2) {
-          if (frustrationLevel >= -2 && frustrationLevel <= 1) {
+          if (frustrationLevel >= -2 && frustrationLevel <= 0.5) {
             nextQA = 3;
           } else {
             nextQA = 4;
