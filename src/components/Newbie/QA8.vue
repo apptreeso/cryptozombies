@@ -23,9 +23,9 @@
           <div class="answer-row">
             <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
               <div class="answer-block" @click="onHandleAnswer('1')">
-                <div id="a1" class="answer start">
+                <div id="a1" class="answer" :class="{start: isActive[0]}">
                   <div class="variant">
-                    <span class="pronounce">1</span>
+                    <span :class="{pronounce: isActive[0]}">1</span>
                   </div>
                   <div class="text">人口</div>
                 </div>
@@ -33,9 +33,9 @@
             </div>
             <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
               <div class="answer-block" @click="onHandleAnswer('2')">
-                <div id="a2" class="answer start">
+                <div id="a2" class="answer" :class="{start: isActive[1]}">
                   <div class="variant">
-                    <span class="pronounce">2</span>
+                    <span :class="{pronounce: isActive[1]}">2</span>
                   </div>
                   <div class="text">入口</div>
                 </div>
@@ -45,9 +45,9 @@
           <div class="answer-row">
             <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
               <div class="answer-block" @click="onHandleAnswer('3')">
-                <div id="a3" class="answer start">
+                <div id="a3" class="answer" :class="{start: isActive[2]}">
                   <div class="variant">
-                    <span class="pronounce">3</span>
+                    <span :class="{pronounce: isActive[2]}">3</span>
                   </div>
                   <div class="text">出口</div>
                 </div>
@@ -55,9 +55,9 @@
             </div>
             <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
               <div class="answer-block" @click="onHandleAnswer('4')">
-                <div id="a4" class="answer start">
+                <div id="a4" class="answer" :class="{start: isActive[3]}">
                   <div class="variant">
-                    <span class="pronounce">4</span>
+                    <span :class="{pronounce: isActive[3]}">4</span>
                   </div>
                   <div class="text">出入</div>
                 </div>
@@ -96,6 +96,7 @@ export default {
     return {
       correctAnswer: "1",
       attemptCount: 0,
+      isActive: [false, false, false, false],
       flagA: true,
       flagB: true,
       flagC: true,
@@ -219,6 +220,24 @@ export default {
 
         if (distance == 0) {
           me.onHandleSkip();
+        }
+
+        // Implement shake and blink effet on the answers
+        if (me.limitSecond - parseInt(me.seconds) == 3) {
+          me.isActive = [false, false, false, false];
+          me.isActive[0] = true;
+        }
+        if (me.limitSecond - parseInt(me.seconds) == 5) {
+          me.isActive = [false, false, false, false];
+          me.isActive[1] = true;
+        }
+        if (me.limitSecond - parseInt(me.seconds) == 7) {
+          me.isActive = [false, false, false, false];
+          me.isActive[2] = true;
+        }
+        if (me.limitSecond - parseInt(me.seconds) == 9) {
+          me.isActive = [false, false, false, false];
+          me.isActive[3] = true;
         }
       }, 10);
     }
@@ -368,6 +387,21 @@ export default {
   justify-content: center;
 }
 
+.anim {
+  animation: fadeInLeft 1s ease-in-out 1 backwards;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
 .anim.aa1 {
   animation-delay: 0s;
   z-index: 7;
@@ -381,28 +415,33 @@ export default {
   z-index: 5;
 }
 
-.anim {
-  animation: fadeInLeft 1s ease-in-out 1 backwards;
-}
-
 .answer-block {
   position: relative;
 }
 
 .answer#a1.start {
-  animation: blinkPronounceA1S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
 }
 
 .answer#a2.start {
-  animation: blinkPronounceA2S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
 }
 
 .answer#a3.start {
-  animation: blinkPronounceA3S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
 }
 
 .answer#a4.start {
-  animation: blinkPronounceA4S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
+}
+
+@keyframes blinkPronounce {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 15px #cb4444;
+  }
 }
 
 .answer#a1 {
@@ -453,6 +492,24 @@ export default {
 .variant .pronounce {
   display: inline-block;
   animation: shakeVariant 0.4s ease-in-out;
+}
+
+@keyframes shakeVariant {
+  0% {
+    transform: scale(1.1) rotate(12deg);
+  }
+  25% {
+    transform: scale(1.2) rotate(-12deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(12deg);
+  }
+  75% {
+    transform: scale(1.5) rotate(-12deg);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .answer .text {
