@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
         <div class="timer-bar-left" :style="{ width: leftBarWidth }"></div>
@@ -291,6 +291,10 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  background-image: url("../../assets/image/4121.Q1.ABCD.background.l.jpg");
+}
+
 .skip {
   font-size: 2em;
   color: #dc3545;
