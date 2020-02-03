@@ -6,18 +6,18 @@
         <div class="timer-bar-right"></div>
       </div>
     </section>
-    <section class="question">
+    <section class="question" v-if="showQuestion">
       <div class="question-wrapper">
         <div class="text">
           <span style="color:#CB4444">What does this</span> mean
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <span id="char0" class="list-complete-item">What is "Pedestrian" in Chinese</span>
+          <span id="char0" class="list-complete-item">What is "See you next time" in Chinese?</span>
         </div>
       </div>
     </section>
-    <section>
+    <section v-if="showAnswer">
       <div class="answers d-flex mb-0 justify-content-center align-items-center">
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
@@ -27,7 +27,7 @@
                   <div class="variant">
                     <span :class="{pronounce: isActive[0]}">1</span>
                   </div>
-                  <div class="text">人行道</div>
+                  <div class="text">见</div>
                 </div>
               </div>
             </div>
@@ -37,7 +37,7 @@
                   <div class="variant">
                     <span :class="{pronounce: isActive[1]}">2</span>
                   </div>
-                  <div class="text">行人</div>
+                  <div class="text">下次</div>
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
                   <div class="variant">
                     <span :class="{pronounce: isActive[2]}">3</span>
                   </div>
-                  <div class="text">人行道</div>
+                  <div class="text">下次见</div>
                 </div>
               </div>
             </div>
@@ -59,7 +59,7 @@
                   <div class="variant">
                     <span :class="{pronounce: isActive[3]}">4</span>
                   </div>
-                  <div class="text">出入</div>
+                  <div class="text">次</div>
                 </div>
               </div>
             </div>
@@ -67,24 +67,26 @@
         </div>
       </div>
     </section>
-    <div class="row justify-content-center mt-3 mx-0">
-      <b-button variant="info" class="skip px-5" @click="onHandleSkip">I don't know</b-button>
-    </div>
-    <div class="debuginfo row justify-content-center mt-5">
-      <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
-    </div>
-    <div class="debuginfo row justify-content-center">
-      <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
-    </div>
-    <div class="debuginfo row justify-content-center">
-      <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
-    </div>
-    <div class="debuginfo row justify-content-center">
-      <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
-    </div>
-    <div class="debuginfo row justify-content-center">
-      <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-    </div>
+    <section v-if="showAnswer">
+      <div class="row justify-content-center mt-3 mx-0">
+        <b-button variant="info" class="skip anim px-5" @click="onHandleSkip">I don't know</b-button>
+      </div>
+      <div class="debuginfo row justify-content-center mt-5">
+        <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -94,7 +96,10 @@ export default {
   components: {},
   data() {
     return {
-      correctAnswer: "2",
+      showQuestion: false,
+      showAnswer: false,
+      questionAudio: false,
+      correctAnswer: "3",
       attemptCount: 0,
       isActive: [false, false, false, false],
       flagA: true,
@@ -132,7 +137,6 @@ export default {
         }
       }
 
-      let audio = null;
       clearInterval(this.timer);
 
       if (idx === this.correctAnswer) {
@@ -142,10 +146,9 @@ export default {
         }
 
         // Play audio
-        audio = new Audio(
+        this.playAudio(
           "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
         );
-        audio.play();
 
         // Dispatch true
         this.frustrationLevel--;
@@ -157,10 +160,9 @@ export default {
         this.$store.dispatch("setFlagEndAction", "true");
       } else {
         // Play audio
-        audio = new Audio(
-          "http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3"
+        this.playAudio(
+          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
         );
-        audio.play();
 
         // Dispatch false
         this.frustrationLevel++;
@@ -173,14 +175,12 @@ export default {
       }
     },
     onHandleSkip() {
-      let audio = null;
       clearInterval(this.timer);
 
       // Play audio
-      audio = new Audio(
-        "http://soundbible.com/mp3/Air Plane Ding-SoundBible.com-496729130.mp3"
+      this.playAudio(
+        "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
       );
-      audio.play();
 
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
@@ -193,8 +193,15 @@ export default {
         millisecond = interval;
 
       let countDown = this.limitSecond * 100,
+        delay = 1,
         now = 0;
       me.timer = setInterval(function() {
+        // Delay for start audio
+        delay--;
+        if (delay > 0) return;
+        else if (delay == 0) me.showQuestion = true;
+
+        // Normal Functionality
         let distance = countDown - now;
         now++;
 
@@ -222,24 +229,57 @@ export default {
           me.onHandleSkip();
         }
 
-        // Implement shake and blink effet on the answers
-        if (me.limitSecond - parseInt(me.seconds) == 3) {
+        // Implement the effets on the answers
+        if (
+          me.limitSecond - parseInt(me.seconds) == 4 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q4.AB.option1.mp3"));
           me.isActive = [false, false, false, false];
           me.isActive[0] = true;
         }
-        if (me.limitSecond - parseInt(me.seconds) == 5) {
+        if (
+          me.limitSecond - parseInt(me.seconds) == 6 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q4.AB.option2.mp3"));
           me.isActive = [false, false, false, false];
           me.isActive[1] = true;
         }
-        if (me.limitSecond - parseInt(me.seconds) == 7) {
+        if (
+          me.limitSecond - parseInt(me.seconds) == 8 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q4.AB.option3.mp3"));
           me.isActive = [false, false, false, false];
           me.isActive[2] = true;
         }
-        if (me.limitSecond - parseInt(me.seconds) == 9) {
+        if (
+          me.limitSecond - parseInt(me.seconds) == 10 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q4.AB.option4.mp3"));
           me.isActive = [false, false, false, false];
           me.isActive[3] = true;
         }
+
+        if (
+          me.limitSecond - parseInt(me.seconds) == 3 &&
+          me.milliseconds == 0
+        ) {
+          me.showAnswer = true;
+        }
+
+        // Question Audio
+        if (!me.questionAudio) {
+          me.playAudio(require("../../assets/audio/Q4.AB.question.mp3"));
+          me.questionAudio = true;
+        }
       }, 10);
+    },
+    playAudio(uri) {
+      let audio = new Audio(uri);
+      audio.play();
     }
   },
   mounted() {

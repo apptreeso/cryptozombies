@@ -233,7 +233,7 @@ export default {
 
         // Implement the effets on the answers
         if (
-          me.limitSecond - parseInt(me.seconds) == 3 &&
+          me.limitSecond - parseInt(me.seconds) == 4 &&
           me.milliseconds == 0
         ) {
           me.playAudio(require("../../assets/audio/Q2.ABCD.option1.mp3"));
@@ -241,7 +241,7 @@ export default {
           me.isActive[0] = true;
         }
         if (
-          me.limitSecond - parseInt(me.seconds) == 5 &&
+          me.limitSecond - parseInt(me.seconds) == 6 &&
           me.milliseconds == 0
         ) {
           me.playAudio(require("../../assets/audio/Q2.ABCD.option2.mp3"));
@@ -249,7 +249,7 @@ export default {
           me.isActive[1] = true;
         }
         if (
-          me.limitSecond - parseInt(me.seconds) == 7 &&
+          me.limitSecond - parseInt(me.seconds) == 8 &&
           me.milliseconds == 0
         ) {
           me.playAudio(require("../../assets/audio/Q2.ABCD.option3.mp3"));
@@ -257,7 +257,7 @@ export default {
           me.isActive[2] = true;
         }
         if (
-          me.limitSecond - parseInt(me.seconds) == 9 &&
+          me.limitSecond - parseInt(me.seconds) == 10 &&
           me.milliseconds == 0
         ) {
           me.playAudio(require("../../assets/audio/Q2.ABCD.option4.mp3"));

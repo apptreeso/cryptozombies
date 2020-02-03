@@ -57,8 +57,8 @@ export default {
   },
   data() {
     return {
-      currentStep: 1,
-      currentQANumber: 1
+      currentStep: 5,
+      currentQANumber: 9
     };
   },
   computed: {
@@ -81,9 +81,9 @@ export default {
           }
         } else if (this.currentStep === 3) {
           if (frustrationLevel >= -4 && frustrationLevel <= 0) {
-            nextQA = 6;
-          } else {
             nextQA = 5;
+          } else {
+            nextQA = 6;
           }
         } else if (this.currentStep === 4) {
           if (frustrationLevel >= -6 && frustrationLevel <= -4) {
@@ -91,10 +91,10 @@ export default {
           } else if (frustrationLevel >= -3.5 && frustrationLevel <= 3) {
             nextQA = 7;
           } else {
-            nextQA = 6;
+            nextQA = 9;
           }
         } else {
-          nextQA = 9;
+          nextQA = 10;
         }
 
         this.currentStep++;
