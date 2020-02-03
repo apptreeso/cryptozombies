@@ -1,34 +1,107 @@
 <template>
   <div>
-    <div
-      class="row justify-content-center mt-6 debuginfo-title mx-0"
-    >You scored {{parseInt(Math.abs(frustrationLevel-8.5)/16.5*100)}}</div>
-    <div class="row justify-content-center debuginfo mt-5">
-      <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-    </div>
+    <section class="timer-wrapper mb-4">
+      <div class="d-flex">
+        <div class="timer-bar-left" :style="{width: leftBarWidth}"></div>
+        <div class="timer-bar-right"></div>
+      </div>
+    </section>
+    <section class="question" v-if="showQuestion">
+      <div class="question-wrapper">
+        <div class="text">
+          <span style="color:#CB4444">What does this</span> mean
+          <span style="color:#CB4444">?</span>
+        </div>
+        <div class="symbols show">
+          <span id="char0" class="list-complete-item">What is "See you next time" in Chinese?</span>
+        </div>
+      </div>
+    </section>
+    <section v-if="showAnswer">
+      <div class="answers d-flex mb-0 justify-content-center align-items-center">
+        <div class="answers-inner d-flex justify-content-center">
+          <div class="answer-row">
+            <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('1')">
+                <div id="a1" class="answer" :class="{start: isActive[0]}">
+                  <div class="variant">
+                    <span :class="{pronounce: isActive[0]}">1</span>
+                  </div>
+                  <div class="text">见</div>
+                </div>
+              </div>
+            </div>
+            <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('2')">
+                <div id="a2" class="answer" :class="{start: isActive[1]}">
+                  <div class="variant">
+                    <span :class="{pronounce: isActive[1]}">2</span>
+                  </div>
+                  <div class="text">下次</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="answer-row">
+            <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('3')">
+                <div id="a3" class="answer" :class="{start: isActive[2]}">
+                  <div class="variant">
+                    <span :class="{pronounce: isActive[2]}">3</span>
+                  </div>
+                  <div class="text">下次见</div>
+                </div>
+              </div>
+            </div>
+            <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
+              <div class="answer-block" @click="onHandleAnswer('4')">
+                <div id="a4" class="answer" :class="{start: isActive[3]}">
+                  <div class="variant">
+                    <span :class="{pronounce: isActive[3]}">4</span>
+                  </div>
+                  <div class="text">次</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section v-if="showAnswer">
+      <div class="row justify-content-center mt-3 mx-0">
+        <b-button variant="info" class="skip anim px-5" @click="onHandleSkip">I don't know</b-button>
+      </div>
+      <div class="debuginfo row justify-content-center mt-5">
+        <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
+      </div>
+      <div class="debuginfo row justify-content-center">
+        <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: "QA1",
+  name: "QA9",
   components: {},
   data() {
     return {
+      showQuestion: false,
+      showAnswer: false,
+      questionAudio: false,
       correctAnswer: "3",
       attemptCount: 0,
+      isActive: [false, false, false, false],
       flagA: true,
       flagB: true,
       flagC: true,
@@ -36,6 +109,7 @@ export default {
       limitSecond: 40,
       seconds: "00",
       milliseconds: "00",
+      leftBarWidth: "100vw",
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
@@ -63,12 +137,20 @@ export default {
         }
       }
 
+      clearInterval(this.timer);
+
       if (idx === this.correctAnswer) {
         if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
           this.flagThreeSeconds = true;
           this.frustrationLevel--;
         }
 
+        // Play audio
+        this.playAudio(
+          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+        );
+
+        // Dispatch true
         this.frustrationLevel--;
 
         this.$store.dispatch(
@@ -76,9 +158,30 @@ export default {
           this.frustrationLevel
         );
         this.$store.dispatch("setFlagEndAction", "true");
+      } else {
+        // Play audio
+        this.playAudio(
+          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+        );
+
+        // Dispatch false
+        this.frustrationLevel++;
+
+        this.$store.dispatch(
+          "setFrustrationLevelAction",
+          this.frustrationLevel
+        );
+        this.$store.dispatch("setFlagEndAction", "false");
       }
     },
     onHandleSkip() {
+      clearInterval(this.timer);
+
+      // Play audio
+      this.playAudio(
+        "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+      );
+
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
       this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
@@ -90,11 +193,22 @@ export default {
         millisecond = interval;
 
       let countDown = this.limitSecond * 100,
+        delay = 1,
         now = 0;
-      let timer = setInterval(function() {
+      me.timer = setInterval(function() {
+        // Delay for start audio
+        delay--;
+        if (delay > 0) return;
+        else if (delay == 0) me.showQuestion = true;
+
+        // Normal Functionality
         let distance = countDown - now;
         now++;
 
+        // Update Timer Bar
+        me.leftBarWidth = (distance / countDown) * 100 + "vw";
+
+        // Calculate Timer
         me.milliseconds = (distance % second) / millisecond;
         me.seconds = (distance - me.milliseconds) / second;
 
@@ -112,9 +226,60 @@ export default {
         }
 
         if (distance == 0) {
-          clearInterval(timer);
+          me.onHandleSkip();
+        }
+
+        // Implement the effets on the answers
+        if (
+          me.limitSecond - parseInt(me.seconds) == 4 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q5.D.option1.mp3"));
+          me.isActive = [false, false, false, false];
+          me.isActive[0] = true;
+        }
+        if (
+          me.limitSecond - parseInt(me.seconds) == 6 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q5.D.option2.mp3"));
+          me.isActive = [false, false, false, false];
+          me.isActive[1] = true;
+        }
+        if (
+          me.limitSecond - parseInt(me.seconds) == 8 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q5.D.option3.mp3"));
+          me.isActive = [false, false, false, false];
+          me.isActive[2] = true;
+        }
+        if (
+          me.limitSecond - parseInt(me.seconds) == 10 &&
+          me.milliseconds == 0
+        ) {
+          me.playAudio(require("../../assets/audio/Q5.D.option4.mp3"));
+          me.isActive = [false, false, false, false];
+          me.isActive[3] = true;
+        }
+
+        if (
+          me.limitSecond - parseInt(me.seconds) == 3 &&
+          me.milliseconds == 0
+        ) {
+          me.showAnswer = true;
+        }
+
+        // Question Audio
+        if (!me.questionAudio) {
+          me.playAudio(require("../../assets/audio/Q5.D.question.mp3"));
+          me.questionAudio = true;
         }
       }, 10);
+    },
+    playAudio(uri) {
+      let audio = new Audio(uri);
+      audio.play();
     }
   },
   mounted() {
@@ -125,7 +290,7 @@ export default {
     this.frustrationLevel = this.$store.state.frustrationLevel;
   },
   created: function() {
-    // this.runTimer(this);
+    this.runTimer(this);
   }
 };
 </script>
@@ -136,22 +301,33 @@ export default {
   color: #dc3545;
 }
 
-.debuginfo-title {
-  margin-top: 60px;
-  color: #dc3545;
-  font-size: calc(42px + 0.4vw);
-}
-
 .debuginfo {
   margin: 0 auto;
   display: flex;
   align-items: right;
-  color: #dc3545;
+  color: #333;
   text-align: center;
 }
 
 .debuginfo label {
   font-size: 1.5em;
+}
+
+.timer-wrapper {
+  display: flex;
+  height: 10px;
+  border-radius: 10px;
+  box-shadow: 0 50px 50px rgba(0, 0, 0, 0.15);
+}
+
+.timer-bar-left {
+  background: #cb4444;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.timer-bar-right {
+  width: 100vw;
 }
 
 .question {
@@ -251,6 +427,20 @@ export default {
   justify-content: center;
 }
 
+.anim {
+  animation: fadeInLeft 1s ease-in-out 1 backwards;
+}
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
 .anim.aa1 {
   animation-delay: 0s;
   z-index: 7;
@@ -264,28 +454,33 @@ export default {
   z-index: 5;
 }
 
-.anim {
-  animation: fadeInLeft 1s ease-in-out 1 backwards;
-}
-
 .answer-block {
   position: relative;
 }
 
 .answer#a1.start {
-  animation: blinkPronounceA1S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
 }
 
 .answer#a2.start {
-  animation: blinkPronounceA2S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
 }
 
 .answer#a3.start {
-  animation: blinkPronounceA3S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
 }
 
 .answer#a4.start {
-  animation: blinkPronounceA4S 0.3s 3;
+  animation: blinkPronounce 0.3s 3;
+}
+
+@keyframes blinkPronounce {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 15px #cb4444;
+  }
 }
 
 .answer#a1 {
@@ -338,9 +533,27 @@ export default {
   animation: shakeVariant 0.4s ease-in-out;
 }
 
+@keyframes shakeVariant {
+  0% {
+    transform: scale(1.1) rotate(12deg);
+  }
+  25% {
+    transform: scale(1.2) rotate(-12deg);
+  }
+  50% {
+    transform: scale(1.3) rotate(12deg);
+  }
+  75% {
+    transform: scale(1.5) rotate(-12deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .answer .text {
   font-weight: 700;
-  font-size: calc(16px + 0.4vw);
+  font-size: calc(60px + 0.4vw);
   text-align: center;
   margin-left: 10px;
   margin-right: 10px;
@@ -472,7 +685,7 @@ export default {
   }
 
   .answer .text {
-    font-size: calc(15px + 0.4vw);
+    font-size: calc(42px + 0.4vw);
   }
 }
 
