@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content" :style="handleBackgroundHeight">
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
         <div class="timer-bar-left" :style="{ width: leftBarWidth }"></div>
@@ -106,7 +106,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 40,
+      limitSecond: 400,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -118,7 +118,31 @@ export default {
       frustrationLevel: 0
     };
   },
+  computed: {
+    handleBackgroundHeight() {
+      if (!this.ismobile()) {
+        return {
+          "background-image": `url(${require("../../assets/image/4121.Q1.ABCD.background.l.jpg")})`
+        };
+      } else {
+        return {
+          "background-image": `url(${require("../../assets/image/4121.Q1.ABCD.background.p.jpg")})`
+        };
+      }
+    }
+  },
   methods: {
+    ismobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     onHandleAnswer(idx) {
       switch (idx) {
         case "1": {
@@ -192,6 +216,7 @@ export default {
       me.timer = setInterval(function() {
         // Delay for start audio
         delay--;
+
         if (delay > 0) return;
         else if (delay == 0) me.showQuestion = true;
 
@@ -292,7 +317,9 @@ export default {
 
 <style scoped>
 .content {
-  background-image: url("../../assets/image/4121.Q1.ABCD.background.l.jpg");
+  flex: 1;
+  background-size: cover;
+  overflow: hidden;
 }
 
 .skip {
@@ -310,6 +337,7 @@ export default {
 
 .debuginfo label {
   font-size: 1.5em;
+  margin: 0;
 }
 
 .timer-wrapper {
