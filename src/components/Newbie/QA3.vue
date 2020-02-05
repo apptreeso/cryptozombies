@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content" :style="handleBackgroundHeight">
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
         <div class="timer-bar-left" :style="{width: leftBarWidth}"></div>
@@ -118,7 +118,31 @@ export default {
       frustrationLevel: 0
     };
   },
+  computed: {
+    handleBackgroundHeight() {
+      if (!this.ismobile()) {
+        return {
+          "background-image": `url(${require("../../assets/image/4121.Q3.ABC.background.l.jpg")})`
+        };
+      } else {
+        return {
+          "background-image": `url(${require("../../assets/image/4121.Q3.ABC.background.p.jpg")})`
+        };
+      }
+    }
+  },
   methods: {
+    ismobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     onHandleAnswer(idx) {
       switch (idx) {
         case "1": {
@@ -200,6 +224,7 @@ export default {
       me.timer = setInterval(function() {
         // Delay for start audio
         delay--;
+
         if (delay > 0) return;
         else if (delay == 0) me.showQuestion = true;
 
@@ -298,6 +323,12 @@ export default {
 </script>
 
 <style scoped>
+.content {
+  flex: 1;
+  background-size: cover;
+  overflow: hidden;
+}
+
 .skip {
   font-size: 2em;
   color: #dc3545;

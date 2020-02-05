@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="app-wrap">
     <section class="menu-wrap">
-      <!-- <div class="row mx-auto justify-content-center align-items-center navbar-test"> -->
       <div class="menu-block">
         <div class="d-flex controls-group">
           <div class="menu"></div>
@@ -57,8 +56,8 @@ export default {
   },
   data() {
     return {
-      currentStep: 1,
-      currentQANumber: 1
+      currentStep: 5,
+      currentQANumber: 9
     };
   },
   computed: {
@@ -109,16 +108,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.app-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .menu-wrap {
   position: relative;
   z-index: 10;
   background: #304155;
 }
 
-.menu-block {
+.menu-block,
+.right-controls-wrap {
   display: flex;
-  -webkit-box-align: center;
   align-items: center;
+}
+
+.menu-block {
   height: 80px;
   max-width: 1300px;
   -webkit-box-pack: justify;
@@ -126,18 +133,6 @@ export default {
   justify-content: space-between;
   padding-left: 50px;
   padding-right: 50px;
-}
-
-@media (max-width: 1370px) {
-  .menu-block {
-    height: 70px;
-  }
-}
-
-@media (max-width: 550px) {
-  .menu-block {
-    height: 62px;
-  }
 }
 
 .navbar-test {
@@ -187,14 +182,8 @@ export default {
   font-weight: 400;
 }
 
-.right-controls-wrap {
-  align-items: center;
-}
-
 label {
-  cursor: pointer;
-  display: inline-block;
-  margin-bottom: 0.5rem;
+  margin: 0;
 }
 
 .visually-hidden {
@@ -215,7 +204,7 @@ label {
   transition: 0.2s;
 }
 
-.button-save {
+.menu-block .button-save {
   width: 160px;
   height: 40px;
   margin-left: 50px;
@@ -248,5 +237,23 @@ label {
 
 .bottom-spacer {
   height: 0;
+}
+
+@media (max-width: 1370px) {
+  .menu-block {
+    height: 70px;
+  }
+  .step {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 550px) {
+  .menu-block {
+    height: 62px;
+  }
+  .button-save {
+    display: none;
+  }
 }
 </style>
