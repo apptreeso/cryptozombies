@@ -56,8 +56,8 @@ export default {
   },
   data() {
     return {
-      currentStep: 5,
-      currentQANumber: 9
+      currentStep: 1,
+      currentQANumber: 1
     };
   },
   computed: {

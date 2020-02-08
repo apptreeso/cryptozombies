@@ -33,7 +33,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 40,
+      limitSecond: 10,
       seconds: "00",
       milliseconds: "00",
       // For debug
@@ -85,7 +85,7 @@ export default {
       this.$store.dispatch("setFlagEndAction", "true");
     },
     runTimer(me) {
-      const interval = 1,
+      let interval = 1,
         second = interval * 100,
         millisecond = interval;
 
