@@ -111,7 +111,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 10,
+      limitSecond: 30,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -247,8 +247,12 @@ export default {
         millisecond = interval;
 
       let countDown = this.limitSecond * 100,
-        delay = 1,
+        delay = 1.5 * 100,
         now = 0;
+
+      // Play transition audio
+      this.playAudio(require("../../assets/audio/SFX_transition.mp3"));
+
       me.timer = setInterval(function() {
         // Delay for start audio
         delay--;

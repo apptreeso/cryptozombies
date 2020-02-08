@@ -111,7 +111,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 10,
+      limitSecond: 30,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -234,11 +234,19 @@ export default {
         millisecond = interval;
 
       let countDown = this.limitSecond * 100,
-        delay = 8 * 100,
+        delay = 1.5 * 100 + 8 * 100,
         now = 0;
+
+      // Play transition audio
+      this.playAudio(require("../../assets/audio/SFX_transition.mp3"));
+
       me.timer = setInterval(function() {
         // Delay for start audio
         delay--;
+
+        // Delay for the question start
+        if (delay == 800)
+          me.playAudio(require("../../assets/audio/Q5.A.question.mp3"));
 
         if (delay > 0) return;
         else if (delay == 0) me.showQuestion = true;
@@ -332,7 +340,6 @@ export default {
     this.frustrationLevel = this.$store.state.frustrationLevel;
   },
   created: function() {
-    this.playAudio(require("../../assets/audio/Q5.A.question.mp3"));
     this.runTimer(this);
   }
 };
