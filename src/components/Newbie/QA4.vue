@@ -22,7 +22,7 @@
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
             <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleAnswer('1')">
+              <div class="answer-block" @click="onHandleAnswer('1')" @mouseover="mouseOver">
                 <div id="a1" class="answer" :class="{start: isActive[0]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[0]}">1</span>
@@ -106,7 +106,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 40,
+      limitSecond: 10,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -174,15 +174,28 @@ export default {
           "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
         );
 
-        // Dispatch true
-        this.frustrationLevel--;
+        // Play audio for correct answer
+        this.playAudio(require("../../assets/audio/SFX_applause.mp3"));
 
-        this.$store.dispatch(
-          "setFrustrationLevelAction",
-          this.frustrationLevel
+        // Delay for audio for correct answer
+        setTimeout(
+          function(self) {
+            // Play audio
+            self.playAudio(
+              "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+            );
+
+            // Dispatch true
+            self.$store.dispatch(
+              "setFrustrationLevelAction",
+              self.frustrationLevel
+            );
+
+            self.$store.dispatch("setFlagEndAction", "true");
+          },
+          3 * 1000,
+          this
         );
-
-        this.$store.dispatch("setFlagEndAction", "true");
       } else {
         // Play audio
         this.playAudio(

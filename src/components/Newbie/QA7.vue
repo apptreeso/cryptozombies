@@ -22,7 +22,7 @@
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
             <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleAnswer('1')">
+              <div class="answer-block" @click="onHandleAnswer('1')" @mouseover="mouseOver">
                 <div id="a1" class="answer" :class="{start: isActive[0]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[0]}">1</span>
@@ -32,7 +32,7 @@
               </div>
             </div>
             <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleAnswer('2')">
+              <div class="answer-block" @click="onHandleAnswer('2')" @mouseover="mouseOver">
                 <div id="a2" class="answer" :class="{start: isActive[1]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[1]}">2</span>
@@ -44,7 +44,7 @@
           </div>
           <div class="answer-row">
             <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleAnswer('3')">
+              <div class="answer-block" @click="onHandleAnswer('3')" @mouseover="mouseOver">
                 <div id="a3" class="answer" :class="{start: isActive[2]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[2]}">3</span>
@@ -54,7 +54,7 @@
               </div>
             </div>
             <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
-              <div class="answer-block" @click="onHandleAnswer('4')">
+              <div class="answer-block" @click="onHandleAnswer('4')" @mouseover="mouseOver">
                 <div id="a4" class="answer" :class="{start: isActive[3]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[3]}">4</span>
@@ -69,7 +69,12 @@
     </section>
     <section v-if="showAnswer">
       <div class="row justify-content-center mt-3 mx-0">
-        <b-button variant="info" class="skip anim px-5" @click="onHandleSkip">I don't know</b-button>
+        <b-button
+          variant="info"
+          class="skip anim px-5"
+          @click="onHandleSkip"
+          @mouseover="mouseOver"
+        >I don't know</b-button>
       </div>
       <div class="debuginfo row justify-content-center mt-5">
         <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
@@ -106,7 +111,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 40,
+      limitSecond: 10,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -131,6 +136,9 @@ export default {
     }
   },
   methods: {
+    mouseOver() {
+      this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
+    },
     ismobile() {
       if (
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -169,19 +177,28 @@ export default {
           this.frustrationLevel--;
         }
 
-        // Play audio
-        this.playAudio(
-          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
-        );
+        // Play audio for correct answer
+        this.playAudio(require("../../assets/audio/SFX_applause.mp3"));
 
-        // Dispatch true
-        this.frustrationLevel--;
+        // Delay for audio for correct answer
+        setTimeout(
+          function(self) {
+            // Play audio
+            self.playAudio(
+              "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
+            );
 
-        this.$store.dispatch(
-          "setFrustrationLevelAction",
-          this.frustrationLevel
+            // Dispatch true
+            self.$store.dispatch(
+              "setFrustrationLevelAction",
+              self.frustrationLevel
+            );
+
+            self.$store.dispatch("setFlagEndAction", "true");
+          },
+          3 * 1000,
+          this
         );
-        this.$store.dispatch("setFlagEndAction", "true");
       } else {
         // Play audio
         this.playAudio(
@@ -212,7 +229,7 @@ export default {
       this.$store.dispatch("setFlagEndAction", "true");
     },
     runTimer(me) {
-      const interval = 1,
+      let interval = 1,
         second = interval * 100,
         millisecond = interval;
 
