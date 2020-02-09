@@ -108,6 +108,7 @@
         <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
       </div>
     </section>
+    <section v-if="overlay" class="overlay" ref="overlay"></section>
   </div>
 </template>
 
@@ -117,6 +118,7 @@ export default {
   components: {},
   data() {
     return {
+      overlay: false,
       showQuestion: false,
       showAnswer: false,
       questionAudio: false,
@@ -127,7 +129,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 300,
+      limitSecond: 3000,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -154,6 +156,7 @@ export default {
   },
   methods: {
     changeBackgroundForExplanation() {
+      // Hide visible elements
       this.$refs.hiddenBtn1.style.visibility = this.$refs.hiddenBtn2.style.visibility = this.$refs.hiddenBtn3.style.visibility = this.$refs.hiddenBtn4.style.visibility =
         "hidden !important";
       if (!this.ismobile()) {
@@ -161,6 +164,17 @@ export default {
       } else {
         this.$refs.content.style.backgroundImage = `url(${require("../../assets/image/4121.Q2.ex1.p.png")})`;
       }
+
+      setTimeout(
+        function(self) {
+          // Display overlay image after 3 seconds
+          self.$refs.content.style.display = "flex";
+          self.$refs.content.style.flexDirection = "column";
+          self.overlay = true;
+        },
+        3 * 1000,
+        this
+      );
     },
     mouseOver() {
       this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
@@ -384,6 +398,24 @@ export default {
 </script>
 
 <style scoped>
+.overlay {
+  flex: 1;
+  background-size: cover;
+  background-image: url("../../assets/image/4121.Q2.ex2.l.png");
+  animation: fadeInRight 1s ease-in-out 1 backwards;
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
 .content {
   flex: 1;
   background-size: cover;
