@@ -227,18 +227,19 @@ export default {
         millisecond = interval;
 
       let countDown = this.limitSecond * 100,
-        delay = 1 * 100,
+        delay = 4 * 100 + 15 * 100,
         now = 0;
-
-      // StartQA after ending the audio
-      // this.playAudio(require("../../assets/audio/Q0_1.mp3"));
 
       me.timer = setInterval(function() {
         // Delay for start audio
         delay--;
 
-        if (delay > 0) return;
-        else if (delay == 0) me.showQuestion = true;
+        if (delay > 0 && delay != 14 * 100) return;
+        else if (delay == 14 * 100) {
+          // StartQA after ending the audio
+          me.playAudio(require("../../assets/audio/Q0_1.mp3"));
+          return;
+        } else if (delay == 0) me.showQuestion = true;
 
         // Normal Functionality
         let distance = countDown - now;

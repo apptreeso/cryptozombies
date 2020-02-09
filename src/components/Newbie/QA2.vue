@@ -405,6 +405,15 @@ export default {
   animation: fadeInRight 1s ease-in-out 1 backwards;
 }
 
+@media (max-width: 800px) {
+  .overlay {
+    flex: 1;
+    background-size: cover;
+    background-image: url("../../assets/image/4121.Q2.ex2.p.png");
+    animation: fadeInRight 1s ease-in-out 1 backwards;
+  }
+}
+
 @keyframes fadeInRight {
   0% {
     opacity: 0;
