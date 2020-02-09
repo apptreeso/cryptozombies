@@ -1,32 +1,44 @@
 <template>
-  <div class="app-wrap">
-    <section class="menu-wrap">
-      <div class="menu-block">
-        <div class="d-flex controls-group">
-          <div class="menu"></div>
-          <div class="step">
-            <span class="current">{{currentStep}}</span>
-            <span class="rest">/6</span>
+  <div>
+    <div class="modal-fader-end start" v-if="!flagStart">
+      <div class="modal-popup transparent">
+        <div class="title-email-sent">
+          Hello! Please, press the
+          <br />button to begin the test!
+        </div>
+        <div class="spacer"></div>
+        <div tabindex="1" class="button-try" @click="onHandleStartBtn">Start</div>
+      </div>
+    </div>
+    <div class="app-wrap" v-if="flagStart">
+      <section class="menu-wrap">
+        <div class="menu-block">
+          <div class="d-flex controls-group">
+            <div class="menu"></div>
+            <div class="step">
+              <span class="current">{{currentStep}}</span>
+              <span class="rest">/6</span>
+            </div>
+          </div>
+          <div class="d-flex right-controls-wrap">
+            <label class="checkbox">
+              <input type="checkbox" class="visually-hidden" />
+              <span class="checkbox__text" />
+            </label>
+            <div class="button-save">Save &amp; Exit</div>
           </div>
         </div>
-        <div class="d-flex right-controls-wrap">
-          <label class="checkbox">
-            <input type="checkbox" class="visually-hidden" />
-            <span class="checkbox__text" />
-          </label>
-          <div class="button-save">Save &amp; Exit</div>
-        </div>
-      </div>
-    </section>
-    <QA1 v-if="currentQANumber == 1"></QA1>
-    <QA2 v-if="currentQANumber == 2"></QA2>
-    <QA3 v-if="currentQANumber == 3"></QA3>
-    <QA4 v-if="currentQANumber == 4"></QA4>
-    <QA5 v-if="currentQANumber == 5"></QA5>
-    <QA6 v-if="currentQANumber == 6"></QA6>
-    <QA7 v-if="currentQANumber == 7"></QA7>
-    <QA8 v-if="currentQANumber == 8"></QA8>
-    <QA9 v-if="currentQANumber == 9"></QA9>
+      </section>
+      <QA1 v-if="currentQANumber == 1"></QA1>
+      <QA2 v-if="currentQANumber == 2"></QA2>
+      <QA3 v-if="currentQANumber == 3"></QA3>
+      <QA4 v-if="currentQANumber == 4"></QA4>
+      <QA5 v-if="currentQANumber == 5"></QA5>
+      <QA6 v-if="currentQANumber == 6"></QA6>
+      <QA7 v-if="currentQANumber == 7"></QA7>
+      <QA8 v-if="currentQANumber == 8"></QA8>
+      <QA9 v-if="currentQANumber == 9"></QA9>
+    </div>
   </div>
 </template>
 
@@ -56,8 +68,9 @@ export default {
   },
   data() {
     return {
-      currentStep: 2,
-      currentQANumber: 2
+      flagStart: false,
+      currentStep: 1,
+      currentQANumber: 1
     };
   },
   computed: {
@@ -101,22 +114,106 @@ export default {
       }
     }
   },
-  methods: {}
+  methods: {
+    onHandleStartBtn() {
+      this.playAudio(require("../assets/audio/SFX_startgong.mp3"));
+      this.flagStart = true;
+    },
+    playAudio(uri) {
+      let audio = new Audio(uri);
+      audio.play();
+    }
+  }
 };
 </script>
 
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.start {
+  text-align: center;
+  background: url("../assets/image/4121.start.l.jpg") no-repeat;
+  background-size: cover;
+  background-size: 100% 100%;
+  transition: all 0.5s ease;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-fader-end {
+  position: fixed;
+  z-index: 5;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.modal-popup.transparent {
+  background: hsla(0, 0%, 100%, 0.5);
+}
+
+.modal-popup {
+  position: absolute;
+  display: flex;
+  width: 900px;
+  min-height: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 44px;
+  color: #384c63;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 30px;
+}
+
+.spacer {
+  height: 50px;
+}
+
 .app-wrap {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
+.button-try {
+  min-width: 148px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  outline: none;
+  margin-left: auto;
+  margin-right: auto;
+  background: #1ebf1b;
+  border-radius: 35px;
+  cursor: pointer;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 .menu-wrap {
   position: relative;
   z-index: 10;
   background: #304155;
+  animation: fadeInBlur 3s both;
+}
+
+@keyframes fadeInBlur {
+  0% {
+    opacity: 0.5;
+    filter: blur(1px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 .menu-block,
@@ -246,14 +343,46 @@ label {
   .step {
     font-size: 50px;
   }
+  .modal-popup {
+    font-weight: 400;
+    font-size: 36px;
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 770px) {
+  .start {
+    background: url("../assets/image/4121.start.p.jpg") no-repeat;
+  }
+  .modal-popup {
+    font-size: 36px;
+    max-width: 84vw;
+  }
 }
 
 @media (max-width: 550px) {
+  .start {
+    background: url("../assets/image/4121.start.p.jpg") no-repeat;
+  }
   .menu-block {
     height: 62px;
   }
   .button-save {
     display: none;
+  }
+  .modal-popup {
+    font-size: 32px;
+    max-width: 84vw;
+  }
+}
+
+@media (max-width: 420px) {
+  .start {
+    background: url("../assets/image/4121.start.p.jpg") no-repeat;
+  }
+  .modal-popup {
+    font-size: 24px;
+    max-width: 84vw;
   }
 }
 </style>

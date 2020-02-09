@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "assessment-test",
+    name: "AssessmentTest",
     component: AssessmentTest
   }
 ];
