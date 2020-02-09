@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :style="handleBackgroundHeight">
+  <div class="content" :style="handleBackground">
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
         <div class="timer-bar-left" :style="{width: leftBarWidth}"></div>
@@ -123,7 +123,7 @@ export default {
     };
   },
   computed: {
-    handleBackgroundHeight() {
+    handleBackground() {
       if (!this.ismobile()) {
         return {
           "background-image": `url(${require("../../assets/image/4121.Q5.A.background.l.jpg")})`

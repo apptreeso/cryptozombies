@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :style="handleBackgroundHeight">
+  <div class="content" :style="handleBackground" ref="content">
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
         <div class="timer-bar-left" :style="{width: leftBarWidth}"></div>
@@ -21,7 +21,11 @@
       <div class="answers d-flex mb-0 justify-content-center align-items-center">
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
-            <div class="anim aa1 blink" :style="{visibility: flagA ? 'visible' : 'hidden'}">
+            <div
+              class="anim aa1 blink"
+              :style="{visibility: flagA ? 'visible' : 'hidden'}"
+              ref="hiddenBtn1"
+            >
               <div class="answer-block" @click="onHandleAnswer('1')" @mouseover="mouseOver">
                 <div id="a1" class="answer" :class="{start: isActive[0]}">
                   <div class="variant">
@@ -31,7 +35,11 @@
                 </div>
               </div>
             </div>
-            <div class="anim aa2 blink" :style="{visibility: flagB ? 'visible' : 'hidden'}">
+            <div
+              class="anim aa2 blink"
+              :style="{visibility: flagB ? 'visible' : 'hidden'}"
+              ref="hiddenBtn2"
+            >
               <div class="answer-block" @click="onHandleAnswer('2')" @mouseover="mouseOver">
                 <div id="a2" class="answer" :class="{start: isActive[1]}">
                   <div class="variant">
@@ -43,7 +51,11 @@
             </div>
           </div>
           <div class="answer-row">
-            <div class="anim aa3 blink" :style="{visibility: flagC ? 'visible' : 'hidden'}">
+            <div
+              class="anim aa3 blink"
+              :style="{visibility: flagC ? 'visible' : 'hidden'}"
+              ref="hiddenBtn3"
+            >
               <div class="answer-block" @click="onHandleAnswer('3')" @mouseover="mouseOver">
                 <div id="a3" class="answer" :class="{start: isActive[2]}">
                   <div class="variant">
@@ -53,7 +65,11 @@
                 </div>
               </div>
             </div>
-            <div class="anim blink" :style="{visibility: flagD ? 'visible' : 'hidden'}">
+            <div
+              class="anim blink"
+              :style="{visibility: flagD ? 'visible' : 'hidden'}"
+              ref="hiddenBtn4"
+            >
               <div class="answer-block" @click="onHandleAnswer('4')" @mouseover="mouseOver">
                 <div id="a4" class="answer" :class="{start: isActive[3]}">
                   <div class="variant">
@@ -123,7 +139,7 @@ export default {
     };
   },
   computed: {
-    handleBackgroundHeight() {
+    handleBackground() {
       if (!this.ismobile()) {
         return {
           "background-image": `url(${require("../../assets/image/4121.Q4.CD.background.l.jpg")})`
@@ -136,6 +152,15 @@ export default {
     }
   },
   methods: {
+    changeBackgroundForExplanation() {
+      this.$refs.hiddenBtn1.style.visibility = this.$refs.hiddenBtn2.style.visibility = this.$refs.hiddenBtn3.style.visibility = this.$refs.hiddenBtn4.style.visibility =
+        "hidden !important";
+      if (!this.ismobile()) {
+        this.$refs.content.style.backgroundImage = `url(${require("../../assets/image/4121.Q4.ex1.l.png")})`;
+      } else {
+        this.$refs.content.style.backgroundImage = `url(${require("../../assets/image/4121.Q4.ex1.p.png")})`;
+      }
+    },
     mouseOver() {
       this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
@@ -184,7 +209,11 @@ export default {
         setTimeout(
           function(self) {
             // Play extra explanation audio
-            self.playAudio(require("../../assets/audio/Q2.ABCD.ex.1.mp3"));
+            self.playAudio(require("../../assets/audio/Q4.CD.ex.1.mp3"));
+
+            // Image for extranation explanation
+            self.showQuestion = self.showAnswer = false;
+            self.changeBackgroundForExplanation();
           },
           3 * 1000,
           this
