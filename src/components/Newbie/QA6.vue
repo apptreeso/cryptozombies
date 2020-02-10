@@ -84,7 +84,7 @@
       </div>
     </section>
     <section v-if="showAnswer">
-      <div class="row justify-content-center mt-3 mx-0">
+      <div class="row justify-content-center mt-3 mb-5 mx-0">
         <b-button
           variant="info"
           class="skip anim px-5"
@@ -92,7 +92,7 @@
           @mouseover="mouseOver"
         >I don't know</b-button>
       </div>
-      <div class="debuginfo row justify-content-center mt-5">
+      <!-- <div class="debuginfo row justify-content-center mt-5">
         <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
       </div>
       <div class="debuginfo row justify-content-center">
@@ -106,7 +106,7 @@
       </div>
       <div class="debuginfo row justify-content-center">
         <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-      </div>
+      </div>-->
     </section>
   </div>
 </template>
@@ -384,7 +384,7 @@ export default {
 <style scoped>
 .content {
   flex: 1;
-  background-size: cover;
+  background-size: 100% 100% !important;
   overflow: hidden;
 }
 
