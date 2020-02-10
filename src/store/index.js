@@ -9,7 +9,8 @@ export default new Vuex.Store({
     flagEightSeconds: false,
     flagThreeSecods: false,
     flagSkip: false,
-    frustrationLevel: 0
+    frustrationLevel: 0,
+    flagMute: false
   },
   mutations: {
     setFlagEnd(state, payload) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     setFrustrationLevel(state, payload) {
       state.frustrationLevel = payload;
+    },
+    setFlagMute(state, payload) {
+      state.flagMute = payload;
     }
   },
   actions: {
@@ -43,6 +47,9 @@ export default new Vuex.Store({
     },
     setFrustrationLevelAction({ commit }, payload) {
       commit("setFrustrationLevel", payload);
+    },
+    setFlagMuteAction({ commit }, payload) {
+      commit("setFlagMute", payload);
     }
   },
   getters: {
@@ -60,6 +67,9 @@ export default new Vuex.Store({
     },
     getFrustrationLevel(state) {
       return state.frustrationLevel;
+    },
+    getFlagMute(state) {
+      return state.flagMute;
     }
   }
 });

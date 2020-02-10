@@ -15,13 +15,13 @@
         <div class="menu-block">
           <div class="d-flex controls-group">
             <div class="menu"></div>
-            <div class="step">
+            <div class="step" :class="{'hide-step': flagEnd}">
               <span class="current">{{currentStep}}</span>
-              <span class="rest">/6</span>
+              <span class="rest">/5</span>
             </div>
           </div>
           <div class="d-flex right-controls-wrap">
-            <label class="checkbox">
+            <label class="checkbox" @click="onHandleMute">
               <input type="checkbox" class="visually-hidden" />
               <span class="checkbox__text" />
             </label>
@@ -72,8 +72,10 @@ export default {
   data() {
     return {
       flagStart: false,
-      currentStep: 1,
-      currentQANumber: 1,
+      flagEnd: false,
+      flagMuteDblClick: false,
+      currentStep: 2,
+      currentQANumber: 2,
       group: ""
     };
   },
@@ -113,6 +115,8 @@ export default {
           if (frustrationLevel <= -5) this.group = "A";
           else if (frustrationLevel >= 4) this.group = "D";
           else this.group = "BC";
+
+          this.flagEnd = true;
           nextQA = 10;
         }
 
@@ -127,8 +131,19 @@ export default {
       this.flagStart = true;
     },
     playAudio(uri) {
-      let audio = new Audio(uri);
-      audio.play();
+      let flagMute = this.$store.state.flagMute;
+      if (!flagMute) {
+        let audio = new Audio(uri);
+        audio.play();
+      }
+    },
+    onHandleMute() {
+      this.flagMuteDblClick = !this.flagMuteDblClick;
+      if (this.flagMuteDblClick) return;
+      else {
+        let flagMute = this.$store.state.flagMute;
+        this.$store.dispatch("setFlagMuteAction", !flagMute);
+      }
     }
   }
 };
@@ -270,6 +285,10 @@ export default {
   font-weight: 700;
 }
 
+.hide-step {
+  visibility: hidden;
+}
+
 .rest {
   position: relative;
   color: white;
@@ -295,8 +314,15 @@ label {
 
 .checkbox__text:before {
   content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAK0SURBVHgB7VmNddowED76OgDdQBuUDcoGzQawQegEuBMUJrA7QZsJnEwAG5hMQDa43MUiOYQkW0I2znv+3rtnYZ/u7tP/CYARI0Z8akwgIRBxSo8FyctkMvkLPeArJAIFr+hRkij9e0Ykfjl0meiahJ/PJI8ke9J/gVuAgyep8ByVR3+JdpQkC+gTjuCbCKzQj6oXIjxMSI6uIBrqci/8I9k1EFHQBbiFPME3EjBsKU2osthhH3eQEmTwHpvRmoBh+85BJM2QIkNrbIcoAsJPlpxEQPBXE9D+zNWKh9MMYkAV/2AYribgIFFhvY+cKfEkKtE/KUPhW0bZ30775IZRDSTMZTczjaUMvA0B2/jO0WzZ8zql0D2+62K9FncBH4G5qw46egPrhpbITh+6QtNGxptggZYjiIeEbOzjTQkYLVsYdUto13PzmxMQwW0ugrPryfm6+gLDQUZyEL/XDr0HUZ4PhoDOBbbiFc8R26q0F+XvQ+oBxn9R5uCVRUcmPdNBEaBeOBivbD0gdYZFIAaDIoCXBzVbjqzk96H1wL0oH2hI7S06SuoMhgDWu+9SvHp0qP4Q5WeuWGE3CE0pK6O+suhNDZ0F98AWbggKYkmPHZwPjd+WFYlh5sZPJyMZpkfTYW6N9mP8xlOnEnpv56W3mzliywQKKv4k+eaovwD7xhIM3eqZ5dOWYll56ijxqoBAp7ZxGtUDeJlhleg4vDl8x6WrgSTaXGzx9Yxq4bc0bMffE+FHPnsVgQB/uWF3A9cC6+Ws7JKA9pGbNtGTN8c4KboggHXmVVmCV5Aa6F6CgwnowHObLezqklc7zmII6GHCQfNkLh0Nwe/TDZsAEjuPbpuFgDe5FfQJrG+WTzduM49e1hB41kurx0ITNYPOsd4bggJP+i9lCPBj5z04Dm4jRoxogVfFReHuykT/aQAAAABJRU5ErkJggg==);
-  -webkit-transition: 0.2s;
   transition: 0.2s;
+}
+
+.checkbox input:checked + .checkbox__text:before {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGbSURBVHgB7ZiNbYMwEIWPKAPQCUo3YIVO0GwAG3QEnAmiTkA7QUfoCOkGsEG7wfVZQiqJ/JtAbEf+pJOlcAnvA2I7IcpkMklT0IIwc4mhQf0WRfFBKYHwFWrgfw6UCorwkoFSQBM+DQGErFE/rCZuAQRsDOHjFkC4V7YTpwCCdexGfAIe4eMTQKAD+3ETge0UrsLQo2pUSQmxncIf6UbBcb5WDq5bDWs/Gj55HQZVmNnxjuzh+1l/o+rZoHYUBmGSkOExtGSD12PQnE+c9XWq8Gc9IhoBm4RX+FACOgnv8CEFNBJ+4UMLGCQEObKh8DwqXmNyhdfD5RHqDe+3rhNBBRThBTtMsVEIsGG28Zbg9Rh8w18kweof5KsI8OleSBneIKHdC71RGPbYYQrdwenYnlxg84Ky2B2YztXqruYl/cWsscLwgnrQ9MoPqcidEVfxiWKB9X9ged2BpXFeiXE1RwzPqJEiwmsrMZP4ppTB41GivmJ4hK4CId+TFpCwfgpOQ0CikUhHQKKQOFJqIPROBp++4DVlMpnM3fMH5GACWxUZJroAAAAASUVORK5CYII=);
+}
+
+.checkbox input:checked + .checkbox__text:after {
+  content: "";
 }
 
 .menu-block .button-save {
