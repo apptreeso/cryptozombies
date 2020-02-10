@@ -303,8 +303,11 @@ export default {
       }, 10);
     },
     playAudio(uri) {
-      let audio = new Audio(uri);
-      audio.play();
+      let flagMute = this.$store.state.flagMute;
+      if (!flagMute) {
+        let audio = new Audio(uri);
+        audio.play();
+      }
     }
   },
   mounted() {
