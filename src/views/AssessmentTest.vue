@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal-fader-end start" v-if="!flagStart">
+    <div class="start" v-if="!flagStart">
       <div class="modal-popup transparent">
         <div class="title-email-sent">
           Hello! Please, press the
@@ -38,6 +38,7 @@
       <QA7 v-if="currentQANumber == 7"></QA7>
       <QA8 v-if="currentQANumber == 8"></QA8>
       <QA9 v-if="currentQANumber == 9"></QA9>
+      <QA10 v-if="currentQANumber == 10" :group="group"></QA10>
     </div>
   </div>
 </template>
@@ -52,6 +53,7 @@ import QA6 from "@/components/newbie/QA6.vue";
 import QA7 from "@/components/newbie/QA7.vue";
 import QA8 from "@/components/newbie/QA8.vue";
 import QA9 from "@/components/newbie/QA9.vue";
+import QA10 from "@/components/newbie/QA10.vue";
 
 export default {
   name: "AssessmentTest",
@@ -64,13 +66,15 @@ export default {
     QA6,
     QA7,
     QA8,
-    QA9
+    QA9,
+    QA10
   },
   data() {
     return {
       flagStart: false,
       currentStep: 1,
-      currentQANumber: 1
+      currentQANumber: 1,
+      group: ""
     };
   },
   computed: {
@@ -106,6 +110,9 @@ export default {
             nextQA = 9;
           }
         } else {
+          if (frustrationLevel <= -5) this.group = "A";
+          else if (frustrationLevel >= 4) this.group = "D";
+          else this.group = "BC";
           nextQA = 10;
         }
 
@@ -127,28 +134,19 @@ export default {
 };
 </script>
 
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .start {
   text-align: center;
   background: url("../assets/image/4121.start.l.jpg") no-repeat;
-  background-size: cover;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
   transition: all 0.5s ease;
   width: 100vw;
   height: 100vh;
 }
 
-.modal-fader-end {
-  position: fixed;
-  z-index: 5;
-  min-width: 100vw;
-  min-height: 100vh;
-}
-
 .modal-popup.transparent {
-  background: hsla(0, 0%, 100%, 0.5);
+  background: hsla(0, 0%, 100%, 0.8);
 }
 
 .modal-popup {

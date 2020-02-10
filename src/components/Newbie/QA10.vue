@@ -1,22 +1,47 @@
 <template>
-  <div>
-    <div
-      class="row justify-content-center mt-6 debuginfo-title mx-0"
-    >You scored {{parseInt(Math.abs(frustrationLevel-8.5)/16.5*100)}}</div>
-    <div class="row justify-content-center debuginfo mt-5">
-      <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
+  <div class="summary-wrap">
+    <div class="summary-wrap-A" v-if="group == 'A'">
+      <div class="bg-wrap-A flex-screen"></div>
+      <div class="ex1-A flex-screen" v-if="ex1[0]"></div>
+      <div class="ex2-A flex-screen" v-if="ex2[0]"></div>
+      <div class="ex3-A flex-screen" v-if="ex3[0]"></div>
+      <div class="ex4-A flex-screen" v-if="ex4[0]"></div>
+      <div class="ex5-A flex-screen" v-if="ex5[0]"></div>
+      <div class="ex6-A flex-screen" v-if="ex6[0]"></div>
+      <div class="ex7-A flex-screen" v-if="ex7[0]"></div>
+      <div class="ex8-A flex-screen" v-if="ex8[0]"></div>
+      <div class="ex9-A flex-screen" v-if="ex9[0]"></div>
+      <div class="ex10-A flex-screen" v-if="ex10[0]"></div>
     </div>
-    <div class="row justify-content-center debuginfo">
-      <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
+    <div class="summary-wrap-BC" v-if="group == 'BC'">
+      <div class="bg-wrap-BC flex-screen"></div>
+      <div class="ex1-BC flex-screen" v-if="ex1[1]"></div>
+      <div class="ex2-BC flex-screen" v-if="ex2[1]"></div>
+      <div class="ex3-BC flex-screen" v-if="ex3[1]"></div>
+      <div class="ex4-BC flex-screen" v-if="ex4[1]"></div>
+      <div class="ex5-BC flex-screen" v-if="ex5[1]"></div>
+      <div class="ex6-BC flex-screen" v-if="ex6[1]"></div>
+      <div class="ex7-BC flex-screen" v-if="ex7[1]"></div>
+      <div class="ex8-BC flex-screen" v-if="ex8[1]"></div>
+      <div class="ex9-BC flex-screen" v-if="ex9[1]"></div>
+      <div class="ex10-BC flex-screen" v-if="ex10[1]"></div>
+      <div class="ex11-BC flex-screen" v-if="ex11[1]"></div>
+      <div class="ex12-BC flex-screen" v-if="ex12[1]"></div>
     </div>
-    <div class="row justify-content-center debuginfo">
-      <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
+    <div class="summary-wrap-D" v-if="group == 'D'">
+      <div class="bg-wrap-D flex-screen"></div>
+      <div class="ex1-D flex-screen" v-if="ex1[3]"></div>
+      <div class="ex2-D flex-screen" v-if="ex2[3]"></div>
+      <div class="ex3-D flex-screen" v-if="ex3[3]"></div>
+      <div class="ex4-D flex-screen" v-if="ex4[3]"></div>
+      <div class="ex5-D flex-screen" v-if="ex5[3]"></div>
+      <div class="ex6-D flex-screen" v-if="ex6[3]"></div>
+      <div class="ex7-D flex-screen" v-if="ex7[3]"></div>
+      <div class="ex8-D flex-screen" v-if="ex8[3]"></div>
+      <div class="ex9-D flex-screen" v-if="ex9[3]"></div>
+      <div class="ex10-D flex-screen" v-if="ex10[3]"></div>
+      <div class="ex11-D flex-screen" v-if="ex11[3]"></div>
+      <div class="ex12-D flex-screen" v-if="ex12[3]"></div>
     </div>
   </div>
 </template>
@@ -25,461 +50,667 @@
 export default {
   name: "QA10",
   components: {},
+  props: ["group"],
   data() {
     return {
-      correctAnswer: "3",
-      attemptCount: 0,
-      flagA: true,
-      flagB: true,
-      flagC: true,
-      flagD: true,
-      limitSecond: 30,
-      seconds: "00",
-      milliseconds: "00",
-      // For debug
-      flagEightSeconds: false,
-      flagThreeSeconds: false,
-      flagSkip: false,
-      frustrationLevel: 0
+      ex1: [false, false, false, false],
+      ex2: [false, false, false, false],
+      ex3: [false, false, false, false],
+      ex4: [false, false, false, false],
+      ex5: [false, false, false, false],
+      ex6: [false, false, false, false],
+      ex7: [false, false, false, false],
+      ex8: [false, false, false, false],
+      ex9: [false, false, false, false],
+      ex10: [false, false, false, false],
+      ex11: [false, false, false, false],
+      ex12: [false, false, false, false]
     };
   },
   methods: {
-    onHandleAnswer(idx) {
-      switch (idx) {
-        case "1": {
-          this.flagA = false;
-          break;
-        }
-        case "2": {
-          this.flagB = false;
-          break;
-        }
-        case "3": {
-          this.flagC = false;
-          break;
-        }
-        case "4": {
-          this.flagD = false;
-        }
-      }
+    summary() {
+      if (this.group == "A") {
+        this.playAudio(require("../../assets/audio/summary/summary.A.mp3"));
 
-      if (idx === this.correctAnswer) {
-        if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
-          this.flagThreeSeconds = true;
-          this.frustrationLevel--;
-        }
-
-        this.frustrationLevel--;
-
-        this.$store.dispatch(
-          "setFrustrationLevelAction",
-          this.frustrationLevel
+        setTimeout(
+          function(self) {
+            self.ex1 = [true, false, false, false];
+          },
+          4 * 1000,
+          this
         );
-        this.$store.dispatch("setFlagEndAction", "true");
+
+        setTimeout(
+          function(self) {
+            self.ex2 = [true, false, false, false];
+          },
+          7 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex3 = [true, false, false, false];
+          },
+          9 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex4 = [true, false, false, false];
+          },
+          13 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex1 = [false, false, false, false];
+            self.ex2 = [false, false, false, false];
+            self.ex3 = [false, false, false, false];
+            self.ex4 = [false, false, false, false];
+            self.ex5 = [true, false, false, false];
+          },
+          17 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex6 = [true, false, false, false];
+          },
+          21 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex5 = [false, false, false, false];
+            self.ex6 = [false, false, false, false];
+            self.ex7 = [true, false, false, false];
+          },
+          28 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex8 = [true, false, false, false];
+          },
+          30 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex7 = [false, false, false, false];
+            self.ex8 = [false, false, false, false];
+            self.ex9 = [true, false, false, false];
+          },
+          43 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex10 = [true, false, false, false];
+          },
+          46 * 1000,
+          this
+        );
+      }
+
+      if (this.group == "BC") {
+        this.playAudio(require("../../assets/audio/summary/summary.BC.mp3"));
+
+        setTimeout(
+          function(self) {
+            self.ex1 = [false, true, false, false];
+          },
+          9 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex2 = [false, true, false, false];
+          },
+          14 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex3 = [false, true, false, false];
+          },
+          16 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex4 = [false, true, false, false];
+          },
+          20 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex1 = [false, false, false, false];
+            self.ex2 = [false, false, false, false];
+            self.ex3 = [false, false, false, false];
+            self.ex4 = [false, false, false, false];
+            self.ex5 = [false, true, false, false];
+          },
+          24 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex6 = [false, true, false, false];
+          },
+          28 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex5 = [false, false, false, false];
+            self.ex6 = [false, false, false, false];
+            self.ex7 = [false, true, false, false];
+          },
+          32 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex8 = [false, true, false, false];
+          },
+          35 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex7 = [false, false, false, false];
+            self.ex8 = [false, false, false, false];
+            self.ex9 = [false, true, false, false];
+          },
+          41 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex10 = [false, true, false, false];
+          },
+          45 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex9 = [false, false, false, false];
+            self.ex10 = [false, false, false, false];
+            self.ex11 = [false, true, false, false];
+          },
+          52 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex12 = [false, true, false, false];
+          },
+          54 * 1000,
+          this
+        );
+      }
+
+      if (this.group == "D") {
+        this.playAudio(require("../../assets/audio/summary/summary.D.mp3"));
+
+        setTimeout(
+          function(self) {
+            self.ex1 = [false, false, false, true];
+          },
+          9 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex2 = [false, false, false, true];
+          },
+          14 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex3 = [false, false, false, true];
+          },
+          16 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex4 = [false, false, false, true];
+          },
+          20 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex1 = [false, false, false, false];
+            self.ex2 = [false, false, false, false];
+            self.ex3 = [false, false, false, false];
+            self.ex4 = [false, false, false, false];
+            self.ex5 = [false, false, false, true];
+          },
+          24 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex6 = [false, false, false, true];
+          },
+          28 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex5 = [false, false, false, false];
+            self.ex6 = [false, false, false, false];
+            self.ex7 = [false, false, false, true];
+          },
+          32 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex8 = [false, false, false, true];
+          },
+          35 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex7 = [false, false, false, false];
+            self.ex8 = [false, false, false, false];
+            self.ex9 = [false, false, false, true];
+          },
+          41 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex10 = [false, true, false, false];
+          },
+          45 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex9 = [false, false, false, false];
+            self.ex10 = [false, false, false, false];
+            self.ex11 = [false, false, false, true];
+          },
+          52 * 1000,
+          this
+        );
+
+        setTimeout(
+          function(self) {
+            self.ex12 = [false, false, false, true];
+          },
+          54 * 1000,
+          this
+        );
       }
     },
-    onHandleSkip() {
-      this.flagSkip = true;
-      this.frustrationLevel += 0.5;
-      this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
-      this.$store.dispatch("setFlagEndAction", "true");
-    },
-    runTimer(me) {
-      let interval = 1,
-        second = interval * 100,
-        millisecond = interval;
-
-      let countDown = this.limitSecond * 100,
-        now = 0;
-      let timer = setInterval(function() {
-        let distance = countDown - now;
-        now++;
-
-        me.milliseconds = (distance % second) / millisecond;
-        me.seconds = (distance - me.milliseconds) / second;
-
-        if (parseInt(me.milliseconds) < 10)
-          me.milliseconds = "0" + me.milliseconds;
-        if (parseInt(me.seconds) < 10) me.seconds = "0" + me.seconds;
-
-        if (
-          me.limitSecond - parseInt(me.seconds) > 8 &&
-          !me.flagEightSeconds &&
-          !me.flagSkip
-        ) {
-          me.flagEightSeconds = true;
-          me.frustrationLevel++;
-        }
-
-        if (distance == 0) {
-          clearInterval(timer);
-        }
-      }, 10);
+    playAudio(uri) {
+      let audio = new Audio(uri);
+      audio.play();
     }
   },
-  mounted() {
-    this.$store.dispatch("setFlagEndAction", "none");
-    this.$store.dispatch("setFlagEightSecondsAction", false);
-    this.$store.dispatch("setFlagThreeSecondsAction", false);
-    this.$store.dispatch("setFlagSkipAction", false);
-    this.frustrationLevel = this.$store.state.frustrationLevel;
-  },
+  mounted() {},
   created: function() {
-    // this.runTimer(this);
+    this.summary();
   }
 };
 </script>
 
 <style scoped>
-.skip {
-  font-size: 2em;
-  color: #dc3545;
-}
-
-.debuginfo-title {
-  margin-top: 60px;
-  color: #dc3545;
-  font-size: calc(42px + 0.4vw);
-}
-
-.debuginfo {
-  margin: 0 auto;
+.summary-wrap,
+.summary-wrap-A {
   display: flex;
-  align-items: right;
-  color: #dc3545;
-  text-align: center;
-}
-
-.debuginfo label {
-  font-size: 1.5em;
-}
-
-.question {
-  min-height: 200px;
-}
-
-.question-wrapper {
-  text-align: center;
-}
-
-.question .text {
-  font-size: 24px;
-  color: #384c63;
-  transition: all 1s;
-  line-height: 34px;
-  height: 34px;
-}
-
-.question .symbols.show {
-  font-size: calc(30px + 3vw);
-}
-
-.symbols.show {
-  font-size: 90px;
-}
-
-.symbols.show {
-  animation: fadeInBlur 1s both;
-  transition: all 1s;
-}
-
-.list-complete-item {
-  transition: all 1s;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.pinyin hide delay {
-  animation: fadeInBlur 1s ease-in forwards;
-}
-
-.question .symbols {
-  color: #384c63;
-}
-
-.question .symbols {
-  text-align: center;
-}
-
-.question .pinyin {
-  color: #518dd4;
-  opacity: 0;
-}
-
-.question .pinyin.delay {
-  animation: fadeInBlur 1s ease-in forwards;
-}
-
-.pinyin.hide.small,
-.pinyin.hide.smaller,
-.pinyin.hide {
-  font-size: 24px;
-  transition: all 1s;
-}
-
-@keyframes fadeInBlur {
-  0% {
-    opacity: 0;
-    filter: blur(5px);
-  }
-
-  100% {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-.answers {
-  position: relative;
-  align-items: center;
-  color: white;
-  z-index: 2;
-}
-
-.answers-inner {
-  justify-content: space-between;
-  margin-right: 40px;
-  margin-left: 40px;
-  max-width: 1300px;
-  flex-wrap: wrap;
-  -webkit-box-flex: 1;
+  flex-direction: column;
   flex: 1;
 }
 
-.answer-row {
-  display: flex;
-  justify-content: center;
+.flex-screen {
+  position: fixed;
+  left: 0;
+  top: 70px;
+  width: 100vw;
+  height: calc(100vh - 70px);
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
 }
 
-.anim.aa1 {
-  animation-delay: 0s;
-  z-index: 7;
+.bg-wrap-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.background.l.png");
 }
 
-.anim.aa2 {
-  z-index: 6;
+.ex1-A {
+  background-image: url("../../assets/image/summary/landscape/4121.summary.A.ex1.l.png");
 }
 
-.anim.aa3 {
-  z-index: 5;
+.ex2-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex2.l.png");
 }
 
-.anim {
-  animation: fadeInLeft 1s ease-in-out 1 backwards;
+.ex3-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex3.l.png");
 }
 
-.answer-block {
-  position: relative;
+.ex4-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex4.l.png");
 }
 
-.answer#a1.start {
-  animation: blinkPronounceA1S 0.3s 3;
+.ex5-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex5.l.png");
 }
 
-.answer#a2.start {
-  animation: blinkPronounceA2S 0.3s 3;
+.ex6-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex6.l.png");
 }
 
-.answer#a3.start {
-  animation: blinkPronounceA3S 0.3s 3;
+.ex7-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex7.l.png");
 }
 
-.answer#a4.start {
-  animation: blinkPronounceA4S 0.3s 3;
+.ex8-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex8.l.png");
 }
 
-.answer#a1 {
-  background: #cb4444;
+.ex9-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex9.l.png");
 }
 
-.answer#a2 {
-  background: #1b84bf;
+.ex10-A {
+  background: url("../../assets/image/summary/landscape/4121.summary.A.ex10.l.png");
 }
 
-.answer#a3 {
-  background: #e48f2a;
+.bg-wrap-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.background.l.png");
 }
 
-.answer#a4 {
-  background: #1ebf1b;
+.ex1-BC {
+  background-image: url("../../assets/image/summary/landscape/4121.summary.BC.ex1.l.png");
 }
 
-.answer {
-  display: flex;
-  width: calc(170px + 5vw);
-  min-height: calc(170px + 5vw);
-  overflow-wrap: break-word;
-  border-radius: 30px;
-  font-weight: 700;
-  border: 0 solid transparent;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  margin-left: 20px;
-  margin-right: 20px;
+.ex2-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex2.l.png");
 }
 
-.answer .variant {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  line-height: 60px;
-  background: rgba(0, 0, 0, 0.15);
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  font-size: 36px;
-  top: 0;
-  right: 20px;
+.ex3-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex3.l.png");
 }
 
-.variant .pronounce {
-  display: inline-block;
-  animation: shakeVariant 0.4s ease-in-out;
+.ex4-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex4.l.png");
 }
 
-.answer .text {
-  font-weight: 700;
-  font-size: calc(16px + 0.4vw);
-  text-align: center;
-  margin-left: 10px;
-  margin-right: 10px;
+.ex5-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex5.l.png");
 }
 
-#a1:hover {
-  box-shadow: 0 0 10px 10px red;
+.ex6-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex6.l.png");
 }
 
-#a2:hover {
-  box-shadow: 0 0 10px 10px blue;
+.ex7-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex7.l.png");
 }
 
-#a3:hover {
-  box-shadow: 0 0 10px 10px #975300;
+.ex8-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex8.l.png");
 }
 
-#a4:hover {
-  box-shadow: 0 0 10px 10px green;
+.ex9-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex9.l.png");
 }
 
-.skip:hover {
-  box-shadow: 0 0 10px 10px #01695b;
+.ex10-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex10.l.png");
 }
 
-@media (max-width: 1370px) {
-  .answer {
-    height: 46px;
-    margin-bottom: 18px;
-  }
-
-  .question .symbols.show,
-  .question .symbols {
-    font-size: 80px;
-  }
-
-  .answer .variant {
-    font-size: 32px;
-  }
-
-  .question {
-    min-height: 200px;
-    margin-bottom: 30px;
-  }
-
-  .question .symbols.show,
-  .question .symbols {
-    font-size: 80px;
-  }
+.ex11-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex11.l.png");
 }
 
-@media (max-width: 1100px) {
-  .answer {
-    display: flex;
-    width: calc(50px + 15.9vw);
-    min-height: calc(50px + 15.9vw);
-    margin-left: 10px;
-    margin-right: 10px;
-  }
+.ex12-BC {
+  background: url("../../assets/image/summary/landscape/4121.summary.BC.ex12.l.png");
+}
 
-  .answer .variant {
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 28px;
-    right: 10px;
-  }
+.bg-wrap-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.background.l.png");
+}
 
-  .question {
-    min-height: 180px;
-    margin-bottom: 10px;
-  }
+.ex1-D {
+  background-image: url("../../assets/image/summary/landscape/4121.summary.D.ex1.l.png");
+}
 
-  .question .symbols.show,
-  .question .symbols {
-    font-size: 70px;
-  }
+.ex2-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex2.l.png");
+}
+
+.ex3-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex3.l.png");
+}
+
+.ex4-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex4.l.png");
+}
+
+.ex5-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex5.l.png");
+}
+
+.ex6-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex6.l.png");
+}
+
+.ex7-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex7.l.png");
+}
+
+.ex8-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex8.l.png");
+}
+
+.ex9-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex9.l.png");
+}
+
+.ex10-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex10.l.png");
+}
+
+.ex11-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex11.l.png");
+}
+
+.ex12-D {
+  background: url("../../assets/image/summary/landscape/4121.summary.D.ex12.l.png");
 }
 
 @media (max-width: 800px) {
-  .answer {
-    width: calc(170px + 5vw);
-    min-height: calc(170px + 5vw);
+  .flex-screen {
+    top: 62px;
+    height: calc(100vh - 62px);
   }
 
-  .answers-inner {
-    display: flex;
-    justify-content: space-between;
-    margin-right: 40px;
-    margin-left: 40px;
-    max-width: 1300px;
-    flex-wrap: wrap;
-    flex: 1;
+  .bg-wrap-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.background.p.png");
   }
 
-  .answer-row {
-    flex-grow: 1;
+  .ex1-A {
+    background-image: url("../../assets/image/summary/portrait/4121.summary.A.ex1.p.png");
   }
 
-  .answer .variant {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 26px;
-    top: 0;
-    right: 10px;
+  .ex2-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex2.p.png");
   }
 
-  .question {
-    padding-left: 10px;
-    padding-right: 10px;
+  .ex3-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex3.p.png");
   }
 
-  .question .text {
-    font-size: calc(13px + 0.4vw);
-    min-height: calc(13px + 0.4vw);
-    line-height: calc(13px + 0.4vw);
+  .ex4-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex4.p.png");
   }
 
-  .question .symbols.symbols.show {
-    font-size: calc(30px + 3vw);
-  }
-}
-
-@media (max-width: 500px) {
-  .answer {
-    width: calc(100px + 19vw);
-    min-height: calc(100px + 19vw);
+  .ex5-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex5.p.png");
   }
 
-  .answer .text {
-    font-size: calc(15px + 0.4vw);
+  .ex6-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex6.p.png");
   }
-}
 
-@media (max-width: 390px) {
-  .answer {
-    width: calc(60px + 26.69vw);
-    min-height: calc(60px + 26.69vw);
+  .ex7-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex7.p.png");
+  }
+
+  .ex8-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex8.p.png");
+  }
+
+  .ex9-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex9.p.png");
+  }
+
+  .ex10-A {
+    background: url("../../assets/image/summary/portrait/4121.summary.A.ex10.p.png");
+  }
+
+  .bg-wrap-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.background.p.png");
+  }
+
+  .ex1-BC {
+    background-image: url("../../assets/image/summary/portrait/4121.summary.BC.ex1.p.png");
+  }
+
+  .ex2-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex2.p.png");
+  }
+
+  .ex3-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex3.p.png");
+  }
+
+  .ex4-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex4.p.png");
+  }
+
+  .ex5-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex5.p.png");
+  }
+
+  .ex6-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex6.p.png");
+  }
+
+  .ex7-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex7.p.png");
+  }
+
+  .ex8-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex8.p.png");
+  }
+
+  .ex9-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex9.p.png");
+  }
+
+  .ex10-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex10.p.png");
+  }
+
+  .ex11-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex11.p.png");
+  }
+
+  .ex12-BC {
+    background: url("../../assets/image/summary/portrait/4121.summary.BC.ex12.p.png");
+  }
+
+  .bg-wrap-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.background.p.png");
+  }
+
+  .ex1-D {
+    background-image: url("../../assets/image/summary/portrait/4121.summary.D.ex1.p.png");
+  }
+
+  .ex2-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex2.p.png");
+  }
+
+  .ex3-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex3.p.png");
+  }
+
+  .ex4-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex4.p.png");
+  }
+
+  .ex5-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex5.p.png");
+  }
+
+  .ex6-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex6.p.png");
+  }
+
+  .ex7-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex7.p.png");
+  }
+
+  .ex8-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex8.p.png");
+  }
+
+  .ex9-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex9.p.png");
+  }
+
+  .ex10-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex10.p.png");
+  }
+
+  .ex11-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex11.p.png");
+  }
+
+  .ex12-D {
+    background: url("../../assets/image/summary/portrait/4121.summary.D.ex12.p.png");
   }
 }
 </style>
