@@ -183,11 +183,6 @@ export default {
         // Delay for audio for correct answer
         setTimeout(
           function(self) {
-            // Play audio
-            self.playAudio(
-              "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
-            );
-
             // Dispatch true
             self.$store.dispatch(
               "setFrustrationLevelAction",
@@ -200,11 +195,6 @@ export default {
           this
         );
       } else {
-        // Play audio
-        this.playAudio(
-          "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
-        );
-
         // Dispatch false
         this.frustrationLevel++;
 
@@ -217,11 +207,6 @@ export default {
     },
     onHandleSkip() {
       clearInterval(this.timer);
-
-      // Play audio
-      this.playAudio(
-        "http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3"
-      );
 
       this.flagSkip = true;
       this.frustrationLevel += 0.5;
