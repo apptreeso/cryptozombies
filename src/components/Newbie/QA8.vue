@@ -343,6 +343,8 @@ export default {
 .skip {
   font-size: 2em;
   color: #dc3545;
+  border-radius: 50px;
+  height: 80px;
 }
 
 .debuginfo {
