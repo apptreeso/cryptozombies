@@ -165,15 +165,8 @@ export default {
       this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
     ismobile() {
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      if (window.innerHeight <= 800) return true;
+      else return false;
     },
     onHandleAnswer(idx) {
       switch (idx) {
@@ -372,7 +365,7 @@ export default {
 <style scoped>
 .content {
   flex: 1;
-  background-size: 100% 100% !important;
+  background-size: cover !important;
   overflow: hidden;
 }
 

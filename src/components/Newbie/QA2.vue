@@ -159,6 +159,7 @@ export default {
       // Hide visible elements
       this.$refs.hiddenBtn1.style.visibility = this.$refs.hiddenBtn2.style.visibility = this.$refs.hiddenBtn3.style.visibility = this.$refs.hiddenBtn4.style.visibility =
         "hidden !important";
+
       if (!this.ismobile()) {
         this.$refs.content.style.backgroundImage = `url(${require("../../assets/image/4121.Q2.ex1.l.png")})`;
       } else {
@@ -180,15 +181,8 @@ export default {
       this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
     ismobile() {
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+      if (window.innerHeight <= 800) return true;
+      else return false;
     },
     onHandleAnswer(idx) {
       switch (idx) {
@@ -416,7 +410,7 @@ export default {
 
 .content {
   flex: 1;
-  background-size: 100% 100% !important;
+  background-size: cover !important;
   overflow: hidden;
 }
 
