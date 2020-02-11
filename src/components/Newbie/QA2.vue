@@ -177,8 +177,9 @@ export default {
         this
       );
     },
-    mouseOver() {
-      this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
+    mouseOver(e) {
+      if (e.target.className != "text")
+        this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
     ismobile() {
       if (window.innerHeight <= 800) return true;

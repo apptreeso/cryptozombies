@@ -161,8 +161,9 @@ export default {
         this.$refs.content.style.backgroundImage = `url(${require("../../assets/image/4121.Q4.ex1.p.png")})`;
       }
     },
-    mouseOver() {
-      this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
+    mouseOver(e) {
+      if (e.target.className != "text")
+        this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
     ismobile() {
       if (window.innerHeight <= 800) return true;
