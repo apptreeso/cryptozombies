@@ -74,8 +74,8 @@ export default {
       flagStart: false,
       flagEnd: false,
       flagMuteDblClick: false,
-      currentStep: 1,
-      currentQANumber: 1,
+      currentStep: 2,
+      currentQANumber: 2,
       group: ""
     };
   },
