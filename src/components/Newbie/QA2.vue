@@ -26,8 +26,8 @@
               :style="{visibility: flagA ? 'visible' : 'hidden'}"
               ref="hiddenBtn1"
             >
-              <div class="answer-block" @click="onHandleAnswer('1')" @mouseover="mouseOver">
-                <div id="a1" class="answer" :class="{start: isActive[0]}">
+              <div class="answer-block" @click="onHandleAnswer('1')">
+                <div id="a1" class="answer" :class="{start: isActive[0]}" @mouseover="mouseOver">
                   <div class="variant">
                     <span :class="{pronounce: isActive[0]}">1</span>
                   </div>
@@ -129,7 +129,7 @@ export default {
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 40,
+      limitSecond: 40000,
       seconds: "00",
       milliseconds: "00",
       leftBarWidth: "100vw",
@@ -178,7 +178,10 @@ export default {
       );
     },
     mouseOver(e) {
-      if (e.target.className != "text")
+      if (
+        e.target.className == "answer" ||
+        e.target.className == "answer start"
+      )
         this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
     ismobile() {

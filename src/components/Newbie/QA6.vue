@@ -162,7 +162,10 @@ export default {
       }
     },
     mouseOver(e) {
-      if (e.target.className != "text")
+      if (
+        e.target.className == "answer" ||
+        e.target.className == "answer start"
+      )
         this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
     },
     ismobile() {
