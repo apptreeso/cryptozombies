@@ -2,46 +2,46 @@
   <div class="summary-wrap">
     <div class="summary-wrap-A" v-if="group == 'A'">
       <div class="bg-wrap-A flex-screen"></div>
-      <div class="ex1-A flex-screen" v-if="ex1[0]"></div>
-      <div class="ex2-A flex-screen" v-if="ex2[0]"></div>
-      <div class="ex3-A flex-screen" v-if="ex3[0]"></div>
-      <div class="ex4-A flex-screen" v-if="ex4[0]"></div>
-      <div class="ex5-A flex-screen" v-if="ex5[0]"></div>
-      <div class="ex6-A flex-screen" v-if="ex6[0]"></div>
-      <div class="ex7-A flex-screen" v-if="ex7[0]"></div>
-      <div class="ex8-A flex-screen" v-if="ex8[0]"></div>
-      <div class="ex9-A flex-screen" v-if="ex9[0]"></div>
-      <div class="ex10-A flex-screen" v-if="ex10[0]"></div>
+      <div class="ex1-A flex-screen keep-ratio" v-if="ex1[0]"></div>
+      <div class="ex2-A flex-screen keep-ratio" v-if="ex2[0]"></div>
+      <div class="ex3-A flex-screen keep-ratio" v-if="ex3[0]"></div>
+      <div class="ex4-A flex-screen keep-ratio" v-if="ex4[0]"></div>
+      <div class="ex5-A flex-screen keep-ratio" v-if="ex5[0]"></div>
+      <div class="ex6-A flex-screen keep-ratio" v-if="ex6[0]"></div>
+      <div class="ex7-A flex-screen keep-ratio" v-if="ex7[0]"></div>
+      <div class="ex8-A flex-screen keep-ratio" v-if="ex8[0]"></div>
+      <div class="ex9-A flex-screen keep-ratio" v-if="ex9[0]"></div>
+      <div class="ex10-A flex-screen keep-ratio" v-if="ex10[0]"></div>
     </div>
     <div class="summary-wrap-BC" v-if="group == 'BC'">
       <div class="bg-wrap-BC flex-screen"></div>
-      <div class="ex1-BC flex-screen" v-if="ex1[1]"></div>
-      <div class="ex2-BC flex-screen" v-if="ex2[1]"></div>
-      <div class="ex3-BC flex-screen" v-if="ex3[1]"></div>
-      <div class="ex4-BC flex-screen" v-if="ex4[1]"></div>
-      <div class="ex5-BC flex-screen" v-if="ex5[1]"></div>
-      <div class="ex6-BC flex-screen" v-if="ex6[1]"></div>
-      <div class="ex7-BC flex-screen" v-if="ex7[1]"></div>
-      <div class="ex8-BC flex-screen" v-if="ex8[1]"></div>
-      <div class="ex9-BC flex-screen" v-if="ex9[1]"></div>
-      <div class="ex10-BC flex-screen" v-if="ex10[1]"></div>
-      <div class="ex11-BC flex-screen" v-if="ex11[1]"></div>
-      <div class="ex12-BC flex-screen" v-if="ex12[1]"></div>
+      <div class="ex1-BC flex-screen keep-ratio" v-if="ex1[1]"></div>
+      <div class="ex2-BC flex-screen keep-ratio" v-if="ex2[1]"></div>
+      <div class="ex3-BC flex-screen keep-ratio" v-if="ex3[1]"></div>
+      <div class="ex4-BC flex-screen keep-ratio" v-if="ex4[1]"></div>
+      <div class="ex5-BC flex-screen keep-ratio" v-if="ex5[1]"></div>
+      <div class="ex6-BC flex-screen keep-ratio" v-if="ex6[1]"></div>
+      <div class="ex7-BC flex-screen keep-ratio" v-if="ex7[1]"></div>
+      <div class="ex8-BC flex-screen keep-ratio" v-if="ex8[1]"></div>
+      <div class="ex9-BC flex-screen keep-ratio" v-if="ex9[1]"></div>
+      <div class="ex10-BC flex-screen keep-ratio" v-if="ex10[1]"></div>
+      <div class="ex11-BC flex-screen keep-ratio" v-if="ex11[1]"></div>
+      <div class="ex12-BC flex-screen keep-ratio" v-if="ex12[1]"></div>
     </div>
     <div class="summary-wrap-D" v-if="group == 'D'">
       <div class="bg-wrap-D flex-screen"></div>
-      <div class="ex1-D flex-screen" v-if="ex1[3]"></div>
-      <div class="ex2-D flex-screen" v-if="ex2[3]"></div>
-      <div class="ex3-D flex-screen" v-if="ex3[3]"></div>
-      <div class="ex4-D flex-screen" v-if="ex4[3]"></div>
-      <div class="ex5-D flex-screen" v-if="ex5[3]"></div>
-      <div class="ex6-D flex-screen" v-if="ex6[3]"></div>
-      <div class="ex7-D flex-screen" v-if="ex7[3]"></div>
-      <div class="ex8-D flex-screen" v-if="ex8[3]"></div>
-      <div class="ex9-D flex-screen" v-if="ex9[3]"></div>
-      <div class="ex10-D flex-screen" v-if="ex10[3]"></div>
-      <div class="ex11-D flex-screen" v-if="ex11[3]"></div>
-      <div class="ex12-D flex-screen" v-if="ex12[3]"></div>
+      <div class="ex1-D flex-screen keep-ratio" v-if="ex1[3]"></div>
+      <div class="ex2-D flex-screen keep-ratio" v-if="ex2[3]"></div>
+      <div class="ex3-D flex-screen keep-ratio" v-if="ex3[3]"></div>
+      <div class="ex4-D flex-screen keep-ratio" v-if="ex4[3]"></div>
+      <div class="ex5-D flex-screen keep-ratio" v-if="ex5[3]"></div>
+      <div class="ex6-D flex-screen keep-ratio" v-if="ex6[3]"></div>
+      <div class="ex7-D flex-screen keep-ratio" v-if="ex7[3]"></div>
+      <div class="ex8-D flex-screen keep-ratio" v-if="ex8[3]"></div>
+      <div class="ex9-D flex-screen keep-ratio" v-if="ex9[3]"></div>
+      <div class="ex10-D flex-screen keep-ratio" v-if="ex10[3]"></div>
+      <div class="ex11-D flex-screen keep-ratio" v-if="ex11[3]"></div>
+      <div class="ex12-D flex-screen keep-ratio" v-if="ex12[3]"></div>
     </div>
   </div>
 </template>
@@ -412,6 +412,11 @@ export default {
   height: calc(100vh - 70px);
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
+}
+
+.keep-ratio {
+  max-height: calc(100vh - 70px);
+  background-size: cover !important;
 }
 
 .bg-wrap-A {
