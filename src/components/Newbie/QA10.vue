@@ -416,7 +416,7 @@ export default {
 
 .keep-ratio {
   max-height: calc(100vh - 70px);
-  background-size: cover !important;
+  background-size: 100% 100% !important;
 }
 
 .bg-wrap-A {
