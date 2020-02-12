@@ -26,7 +26,12 @@
               :style="{visibility: flagA ? 'visible' : 'hidden'}"
               ref="hiddenBtn1"
             >
-              <div class="answer-block" @click="onHandleAnswer('1')" @mouseover="mouseOver">
+              <div
+                class="answer-block"
+                @click="onHandleAnswer('1')"
+                @mouseover="mouseOver"
+                @mouseleave="mouseLeave"
+              >
                 <div id="a1" class="answer" :class="{start: isActive[0]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[0]}">1</span>
@@ -40,7 +45,12 @@
               :style="{visibility: flagB ? 'visible' : 'hidden'}"
               ref="hiddenBtn2"
             >
-              <div class="answer-block" @click="onHandleAnswer('2')" @mouseover="mouseOver">
+              <div
+                class="answer-block"
+                @click="onHandleAnswer('2')"
+                @mouseover="mouseOver"
+                @mouseleave="mouseLeave"
+              >
                 <div id="a2" class="answer" :class="{start: isActive[1]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[1]}">2</span>
@@ -56,7 +66,12 @@
               :style="{visibility: flagC ? 'visible' : 'hidden'}"
               ref="hiddenBtn3"
             >
-              <div class="answer-block" @click="onHandleAnswer('3')" @mouseover="mouseOver">
+              <div
+                class="answer-block"
+                @click="onHandleAnswer('3')"
+                @mouseover="mouseOver"
+                @mouseleave="mouseLeave"
+              >
                 <div id="a3" class="answer" :class="{start: isActive[2]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[2]}">3</span>
@@ -70,7 +85,12 @@
               :style="{visibility: flagD ? 'visible' : 'hidden'}"
               ref="hiddenBtn4"
             >
-              <div class="answer-block" @click="onHandleAnswer('4')" @mouseover="mouseOver">
+              <div
+                class="answer-block"
+                @click="onHandleAnswer('4')"
+                @mouseover="mouseOver"
+                @mouseleave="mouseLeave"
+              >
                 <div id="a4" class="answer" :class="{start: isActive[3]}">
                   <div class="variant">
                     <span :class="{pronounce: isActive[3]}">4</span>
@@ -90,6 +110,7 @@
           class="skip anim px-5"
           @click="onHandleSkip"
           @mouseover="mouseOver"
+          @mouseleave="mouseLeave"
         >I don't know</b-button>
       </div>
       <!-- <div class="debuginfo row justify-content-center mt-5">
@@ -117,6 +138,8 @@ export default {
   components: {},
   data() {
     return {
+      questionTime: 4,
+      flagHover: true,
       showQuestion: false,
       showAnswer: false,
       questionAudio: false,
@@ -163,10 +186,24 @@ export default {
     },
     mouseOver(e) {
       if (
-        e.target.className == "answer" ||
-        e.target.className == "answer start"
-      )
+        this.flagHover &&
+        (e.target.className == "answer" ||
+          e.target.className == "answer start" ||
+          e.target.className == "btn skip anim px-5 btn-info")
+      ) {
         this.playAudio(require("../../assets/audio/SFX_hoverbutton.mp3"));
+        this.flagHover = false;
+      }
+    },
+    mouseLeave(e) {
+      if (
+        e.target.className == "answer" ||
+        e.target.className == "answer start" ||
+        e.target.className == "answer-block" ||
+        e.target.className == "btn skip anim px-5 btn-info"
+      ) {
+        this.flagHover = true;
+      }
     },
     ismobile() {
       if (window.innerHeight <= 800) return true;
@@ -194,11 +231,15 @@ export default {
       clearInterval(this.timer);
 
       if (idx === this.correctAnswer) {
-        if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
-          this.flagThreeSeconds = true;
+        if (
+          this.limitSecond - parseInt(this.seconds) < this.questionTime + 3 &&
+          !this.flagSkip
+        ) {
           this.frustrationLevel--;
+          this.flagThreeSeconds = true;
         }
 
+        this.frustrationLevel--;
         // Play audio for correct answer
         this.playAudio(require("../../assets/audio/SFX_applause.mp3"));
 
@@ -285,7 +326,7 @@ export default {
         if (parseInt(me.seconds) < 10) me.seconds = "0" + me.seconds;
 
         if (
-          me.limitSecond - parseInt(me.seconds) > 8 &&
+          me.limitSecond - parseInt(me.seconds) > this.questionTime + 8 &&
           !me.flagEightSeconds &&
           !me.flagSkip
         ) {
@@ -371,6 +412,12 @@ export default {
   flex: 1;
   background-size: cover !important;
   overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .content {
+    background-size: 100% 100% !important;
+  }
 }
 
 .skip {

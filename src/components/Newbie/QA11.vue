@@ -64,9 +64,11 @@ export default {
       }
 
       if (idx === this.correctAnswer) {
-        if (this.limitSecond - parseInt(this.seconds) < 3 && !this.flagSkip) {
+        if (
+          this.limitSecond - parseInt(this.seconds) < this.questionTime + 3 &&
+          !this.flagSkip
+        ) {
           this.flagThreeSeconds = true;
-          this.frustrationLevel--;
         }
 
         this.frustrationLevel--;
@@ -103,7 +105,7 @@ export default {
         if (parseInt(me.seconds) < 10) me.seconds = "0" + me.seconds;
 
         if (
-          me.limitSecond - parseInt(me.seconds) > 8 &&
+          me.limitSecond - parseInt(me.seconds) > this.questionTime + 8 &&
           !me.flagEightSeconds &&
           !me.flagSkip
         ) {

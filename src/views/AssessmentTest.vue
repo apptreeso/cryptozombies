@@ -106,7 +106,7 @@ export default {
         } else if (this.currentStep === 4) {
           if (frustrationLevel >= -6 && frustrationLevel <= -4) {
             nextQA = 8;
-          } else if (frustrationLevel >= -3.5 && frustrationLevel <= 3) {
+          } else if (frustrationLevel >= -3.5 && frustrationLevel <= 2.5) {
             nextQA = 7;
           } else {
             nextQA = 9;
