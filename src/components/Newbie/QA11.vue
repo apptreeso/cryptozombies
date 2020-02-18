@@ -3,21 +3,6 @@
     <div
       class="row justify-content-center mt-6 debuginfo-title mx-0"
     >You scored {{parseInt(Math.abs(frustrationLevel-8.5)/16.5*100)}}</div>
-    <div class="row justify-content-center debuginfo mt-5">
-      <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
-    </div>
-    <div class="row justify-content-center debuginfo">
-      <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-    </div>
     <div class="debuginfo row justify-content-center mt-5">
       <label>Timer:&nbsp;&nbsp;{{ seconds }}:{{ milliseconds }}</label>
     </div>
