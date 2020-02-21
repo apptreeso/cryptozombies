@@ -114,7 +114,7 @@
           @mouseleave="mouseLeave"
         >I don't know</b-button>
       </div>
-      <!-- <div class="debuginfo row justify-content-center mt-5">
+      <div class="debuginfo row justify-content-center mt-5">
         <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
       </div>
       <div class="debuginfo row justify-content-center">
@@ -128,7 +128,7 @@
       </div>
       <div class="debuginfo row justify-content-center">
         <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-      </div>-->
+      </div>
     </section>
     <section v-if="overlay" class="overlay" ref="overlay"></section>
   </div>
