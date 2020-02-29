@@ -113,10 +113,10 @@
           @mouseleave="mouseLeave"
         >I don't know</b-button>
       </div>
-      <!-- <div class="debuginfo row justify-content-center mt-5">
+      <div class="debuginfo row justify-content-center mt-5">
         <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
       </div>
-      <div class="debuginfo row justify-content-center">
+      <!-- <div class="debuginfo row justify-content-center">
         <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
       </div>
       <div class="debuginfo row justify-content-center">
