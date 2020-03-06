@@ -2,7 +2,7 @@
   <div class="content" :style="handleBackground" ref="content">
     <section class="timer-wrapper mb-4">
       <div class="d-flex">
-        <div class="timer-bar-left" :style="{width: leftBarWidth}"></div>
+        <div class="timer-bar-left" :style="{ width: leftBarWidth }"></div>
         <div class="timer-bar-right"></div>
       </div>
     </section>
@@ -13,17 +13,21 @@
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <span id="char0" class="list-complete-item">What is "Pedestrian" in Chinese?</span>
+          <span id="char0" class="list-complete-item"
+            >What is "Pedestrian" in Chinese?</span
+          >
         </div>
       </div>
     </section>
     <section v-if="showAnswer">
-      <div class="answers d-flex mb-0 justify-content-center align-items-center">
+      <div
+        class="answers d-flex mb-0 justify-content-center align-items-center"
+      >
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
             <div
               class="anim aa1 blink"
-              :style="{visibility: flagA ? 'visible' : 'hidden'}"
+              :style="{ visibility: flagA ? 'visible' : 'hidden' }"
               ref="hiddenBtn1"
             >
               <div
@@ -32,9 +36,9 @@
                 @mouseover="mouseOver"
                 @mouseleave="mouseLeave"
               >
-                <div id="a1" class="answer" :class="{start: isActive[0]}">
+                <div id="a1" class="answer" :class="{ start: isActive[0] }">
                   <div class="variant">
-                    <span :class="{pronounce: isActive[0]}">1</span>
+                    <span :class="{ pronounce: isActive[0] }">1</span>
                   </div>
                   <div class="text">人行道</div>
                 </div>
@@ -42,7 +46,7 @@
             </div>
             <div
               class="anim aa2 blink"
-              :style="{visibility: flagB ? 'visible' : 'hidden'}"
+              :style="{ visibility: flagB ? 'visible' : 'hidden' }"
               ref="hiddenBtn2"
             >
               <div
@@ -51,9 +55,9 @@
                 @mouseover="mouseOver"
                 @mouseleave="mouseLeave"
               >
-                <div id="a2" class="answer" :class="{start: isActive[1]}">
+                <div id="a2" class="answer" :class="{ start: isActive[1] }">
                   <div class="variant">
-                    <span :class="{pronounce: isActive[1]}">2</span>
+                    <span :class="{ pronounce: isActive[1] }">2</span>
                   </div>
                   <div class="text">行人</div>
                 </div>
@@ -63,7 +67,7 @@
           <div class="answer-row">
             <div
               class="anim aa3 blink"
-              :style="{visibility: flagC ? 'visible' : 'hidden'}"
+              :style="{ visibility: flagC ? 'visible' : 'hidden' }"
               ref="hiddenBtn3"
             >
               <div
@@ -72,9 +76,9 @@
                 @mouseover="mouseOver"
                 @mouseleave="mouseLeave"
               >
-                <div id="a3" class="answer" :class="{start: isActive[2]}">
+                <div id="a3" class="answer" :class="{ start: isActive[2] }">
                   <div class="variant">
-                    <span :class="{pronounce: isActive[2]}">3</span>
+                    <span :class="{ pronounce: isActive[2] }">3</span>
                   </div>
                   <div class="text">人行道</div>
                 </div>
@@ -82,7 +86,7 @@
             </div>
             <div
               class="anim blink"
-              :style="{visibility: flagD ? 'visible' : 'hidden'}"
+              :style="{ visibility: flagD ? 'visible' : 'hidden' }"
               ref="hiddenBtn4"
             >
               <div
@@ -91,9 +95,9 @@
                 @mouseover="mouseOver"
                 @mouseleave="mouseLeave"
               >
-                <div id="a4" class="answer" :class="{start: isActive[3]}">
+                <div id="a4" class="answer" :class="{ start: isActive[3] }">
                   <div class="variant">
-                    <span :class="{pronounce: isActive[3]}">4</span>
+                    <span :class="{ pronounce: isActive[3] }">4</span>
                   </div>
                   <div class="text">出入</div>
                 </div>
@@ -111,15 +115,16 @@
           @click="onHandleSkip"
           @mouseover="mouseOver"
           @mouseleave="mouseLeave"
-        >I don't know</b-button>
+          >I don't know</b-button
+        >
       </div>
       <div class="debuginfo row justify-content-center mt-5">
-        <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
-      </div>
-      <!-- <div class="debuginfo row justify-content-center">
-        <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
+        <label>Timer:&nbsp;&nbsp;{{ seconds }}:{{ milliseconds }}</label>
       </div>
       <div class="debuginfo row justify-content-center">
+        <label>3 Seconds:&nbsp;&nbsp;{{ flagThreeSeconds }}</label>
+      </div>
+      <!-- <div class="debuginfo row justify-content-center">
         <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
       </div>
       <div class="debuginfo row justify-content-center">
@@ -127,7 +132,7 @@
       </div>
       <div class="debuginfo row justify-content-center">
         <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-      </div>-->
+      </div> -->
     </section>
   </div>
 </template>
