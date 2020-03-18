@@ -100,18 +100,18 @@
       <div class="debuginfo row justify-content-center mt-5">
         <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
       </div>
-      <!-- <div class="debuginfo row justify-content-center">
+      <div class="debuginfo row justify-content-center">
         <label>3 Seconds:&nbsp;&nbsp;{{flagThreeSeconds}}</label>
-      </div> -->
-      <div class="debuginfo row justify-content-center">
-        <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
-      </div>
-      <div class="debuginfo row justify-content-center">
-        <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
       </div>
       <!-- <div class="debuginfo row justify-content-center">
+        <label>8 Seconds:&nbsp;&nbsp;{{flagEightSeconds}}</label>
+      </div>-->
+      <!-- <div class="debuginfo row justify-content-center">
+        <label>I don't know:&nbsp;&nbsp;{{flagSkip}}</label>
+      </div>-->
+      <div class="debuginfo row justify-content-center">
         <label>Frustration Level:&nbsp;&nbsp;{{frustrationLevel}}</label>
-      </div> -->
+      </div>
     </section>
   </div>
 </template>
