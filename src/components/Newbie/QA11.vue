@@ -27,20 +27,20 @@ export default {
   components: {},
   data() {
     return {
-      correctAnswer: "3",
+      correctAnswer: "1",
       attemptCount: 0,
       flagA: true,
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 40,
+      limitSecond: 30,
       seconds: "00",
       milliseconds: "00",
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
       flagSkip: false,
-      frustrationLevel: 0
+      frustrationLevel: 1
     };
   },
   methods: {
@@ -65,7 +65,7 @@ export default {
 
       if (idx === this.correctAnswer) {
         if (
-          this.limitSecond - parseInt(this.seconds) < this.questionTime + 3 &&
+          this.limitSecond - parseInt(this.seconds) < this.questionTime + 1 &&
           !this.flagSkip
         ) {
           this.flagThreeSeconds = true;
@@ -82,7 +82,7 @@ export default {
     },
     onHandleSkip() {
       this.flagSkip = true;
-      this.frustrationLevel += 0.5;
+      this.frustrationLevel += 0.3;
       this.$store.dispatch("setFrustrationLevelAction", this.frustrationLevel);
       this.$store.dispatch("setFlagEndAction", "true");
     },
