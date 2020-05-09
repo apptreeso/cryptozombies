@@ -27,20 +27,20 @@ export default {
   components: {},
   data() {
     return {
-      correctAnswer: "1",
+      correctAnswer: "3",
       attemptCount: 0,
       flagA: true,
       flagB: true,
       flagC: true,
       flagD: true,
-      limitSecond: 30,
+      limitSecond: 40,
       seconds: "00",
       milliseconds: "00",
       // For debug
       flagEightSeconds: false,
       flagThreeSeconds: false,
       flagSkip: false,
-      frustrationLevel: 1
+      frustrationLevel: 0
     };
   },
   methods: {
