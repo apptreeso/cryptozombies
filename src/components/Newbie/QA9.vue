@@ -13,15 +13,22 @@
           <span style="color:#CB4444">?</span>
         </div>
         <div class="symbols show">
-          <span id="char0" class="list-complete-item">What is "See you next time" in Chinese?</span>
+          <span id="char0" class="list-complete-item"
+            >What is "See you next time" in Chinese?</span
+          >
         </div>
       </div>
     </section>
     <section v-if="showAnswer">
-      <div class="answers d-flex mb-0 justify-content-center align-items-center">
+      <div
+        class="answers d-flex mb-0 justify-content-center align-items-center"
+      >
         <div class="answers-inner d-flex justify-content-center">
           <div class="answer-row">
-            <div class="anim aa1 blink" :style="{ visibility: flagA ? 'visible' : 'hidden' }">
+            <div
+              class="anim aa1 blink"
+              :style="{ visibility: flagA ? 'visible' : 'hidden' }"
+            >
               <div
                 class="answer-block"
                 @click="onHandleAnswer('1')"
@@ -36,7 +43,10 @@
                 </div>
               </div>
             </div>
-            <div class="anim aa2 blink" :style="{ visibility: flagB ? 'visible' : 'hidden' }">
+            <div
+              class="anim aa2 blink"
+              :style="{ visibility: flagB ? 'visible' : 'hidden' }"
+            >
               <div
                 class="answer-block"
                 @click="onHandleAnswer('2')"
@@ -53,7 +63,10 @@
             </div>
           </div>
           <div class="answer-row">
-            <div class="anim aa3 blink" :style="{ visibility: flagC ? 'visible' : 'hidden' }">
+            <div
+              class="anim aa3 blink"
+              :style="{ visibility: flagC ? 'visible' : 'hidden' }"
+            >
               <div
                 class="answer-block"
                 @click="onHandleAnswer('3')"
@@ -68,7 +81,10 @@
                 </div>
               </div>
             </div>
-            <div class="anim blink" :style="{ visibility: flagD ? 'visible' : 'hidden' }">
+            <div
+              class="anim blink"
+              :style="{ visibility: flagD ? 'visible' : 'hidden' }"
+            >
               <div
                 class="answer-block"
                 @click="onHandleAnswer('4')"
@@ -95,11 +111,12 @@
           @click="onHandleSkip"
           @mouseover="mouseOver"
           @mouseleave="mouseLeave"
-        >I don't know</b-button>
+          >I don't know</b-button
+        >
       </div>
       <!-- <div class="debuginfo row justify-content-center mt-5">
         <label>Timer:&nbsp;&nbsp;{{seconds}}:{{milliseconds}}</label>
-      </div>-->
+      </div>
       <div class="debuginfo row justify-content-center">
         <label>3 Seconds:&nbsp;&nbsp;{{ flagThreeSeconds }}</label>
       </div>
