@@ -8,7 +8,7 @@
     </section>
     <section class="question" v-if="showQuestion">
       <div class="question-wrapper">
-        <div class="text">
+        <!-- <div class="text">
           <span style="color:#CB4444">What does this</span> mean
           <span style="color:#CB4444">?</span>
         </div>
@@ -16,7 +16,7 @@
           <span id="char0" class="list-complete-item"
             >What is "See you next time" in Chinese?</span
           >
-        </div>
+        </div> -->
       </div>
     </section>
     <section v-if="showAnswer">
@@ -67,7 +67,7 @@
               class="anim aa3 blink"
               :style="{ visibility: flagC ? 'visible' : 'hidden' }"
             >
-              <div
+              <!-- <div
                 class="answer-block"
                 @click="onHandleAnswer('3')"
                 @mouseover="mouseOver"
@@ -79,7 +79,7 @@
                   </div>
                   <div class="text">下次见</div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div
               class="anim blink"
@@ -92,9 +92,9 @@
                 @mouseleave="mouseLeave"
               >
                 <div id="a4" class="answer" :class="{ start: isActive[3] }">
-                  <div class="variant">
+                  <!-- <div class="variant">
                     <span :class="{ pronounce: isActive[3] }">4</span>
-                  </div>
+                  </div> -->
                   <div class="text">次</div>
                 </div>
               </div>
