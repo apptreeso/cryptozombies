@@ -140,71 +140,6 @@ export default {
   height: 80px;
 }
 
-.debuginfo-title {
-  margin-top: 60px;
-  color: #dc3545;
-  font-size: calc(42px + 0.4vw);
-}
-
-.debuginfo {
-  margin: 0 auto;
-  display: flex;
-  align-items: right;
-  color: #dc3545;
-  text-align: center;
-}
-
-.debuginfo label {
-  font-size: 1.5em;
-}
-
-.question {
-  min-height: 200px;
-}
-
-.question-wrapper {
-  text-align: center;
-}
-
-.question .text {
-  font-size: 24px;
-  color: #384c63;
-  transition: all 1s;
-  line-height: 34px;
-  height: 34px;
-}
-
-.question .symbols.show {
-  font-size: calc(30px + 3vw);
-}
-
-.symbols.show {
-  font-size: 90px;
-}
-
-.symbols.show {
-  animation: fadeInBlur 1s both;
-  transition: all 1s;
-}
-
-.list-complete-item {
-  transition: all 1s;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.pinyin hide delay {
-  animation: fadeInBlur 1s ease-in forwards;
-}
-
-.question .symbols {
-  color: #384c63;
-}
-
-.question .symbols {
-  text-align: center;
-}
-
 .question .pinyin {
   color: #518dd4;
   opacity: 0;
@@ -322,6 +257,98 @@ export default {
   }
 }
 
+.debuginfo-title {
+  margin-top: 60px;
+  color: #dc3545;
+  font-size: calc(42px + 0.4vw);
+}
+
+.answers {
+  position: relative;
+  align-items: center;
+  color: white;
+  z-index: 2;
+}
+
+.answers-inner {
+  justify-content: space-between;
+  margin-right: 40px;
+  margin-left: 40px;
+  max-width: 1300px;
+  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+  flex: 1;
+}
+
+.answer-row {
+  display: flex;
+  justify-content: center;
+}
+
+.anim.aa1 {
+  animation-delay: 0s;
+  z-index: 7;
+}
+
+.debuginfo {
+  margin: 0 auto;
+  display: flex;
+  align-items: right;
+  color: #dc3545;
+  text-align: center;
+}
+
+.debuginfo label {
+  font-size: 1.5em;
+}
+
+.question {
+  min-height: 200px;
+}
+
+.question-wrapper {
+  text-align: center;
+}
+
+.question .text {
+  font-size: 24px;
+  color: #384c63;
+  transition: all 1s;
+  line-height: 34px;
+  height: 34px;
+}
+
+.question .symbols.show {
+  font-size: calc(30px + 3vw);
+}
+
+.symbols.show {
+  font-size: 90px;
+}
+
+.symbols.show {
+  animation: fadeInBlur 1s both;
+  transition: all 1s;
+}
+
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.pinyin hide delay {
+  animation: fadeInBlur 1s ease-in forwards;
+}
+
+.question .symbols {
+  color: #384c63;
+}
+
+.question .symbols {
+  text-align: center;
+}
+
 @media (max-width: 1100px) {
   .answer {
     display: flex;
@@ -393,33 +420,6 @@ export default {
   .question .symbols.symbols.show {
     font-size: calc(30px + 3vw);
   }
-}
-
-.answers {
-  position: relative;
-  align-items: center;
-  color: white;
-  z-index: 2;
-}
-
-.answers-inner {
-  justify-content: space-between;
-  margin-right: 40px;
-  margin-left: 40px;
-  max-width: 1300px;
-  flex-wrap: wrap;
-  -webkit-box-flex: 1;
-  flex: 1;
-}
-
-.answer-row {
-  display: flex;
-  justify-content: center;
-}
-
-.anim.aa1 {
-  animation-delay: 0s;
-  z-index: 7;
 }
 
 .anim.aa2 {
